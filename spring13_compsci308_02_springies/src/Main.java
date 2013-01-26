@@ -23,6 +23,7 @@ public class Main {
      * main --- where the program starts
      */
     public static void main (String args[]) {
+    	
         // view of user's content
         Canvas display = new Canvas(SIZE);
         // container that will work with user's OS
