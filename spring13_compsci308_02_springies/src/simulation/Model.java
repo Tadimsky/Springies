@@ -18,6 +18,7 @@ public class Model {
     // simulation state
     private List<Mass> myMasses;
     private List<Spring> mySprings;
+    private EnvironmentProperties myEnvironment;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -65,5 +66,11 @@ public class Model {
      */
     public void add (Spring spring) {
         mySprings.add(spring);
+    }
+    
+    public void setEnvironment(EnvironmentProperties ep)
+    {
+    	myEnvironment = ep;
+    	Mass.myEnvironment = ep;
     }
 }

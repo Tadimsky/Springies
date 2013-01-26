@@ -16,6 +16,7 @@ public class Factory {
     // data file keywords
     private static final String MASS_KEYWORD = "mass";
     private static final String SPRING_KEYWORD = "spring";
+    private static final String MUSCLE_KEYWORD = "muscle";
 
     // mass IDs
     Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
@@ -34,8 +35,17 @@ public class Factory {
                     if (MASS_KEYWORD.equals(type)) {
                         model.add(massCommand(line));
                     }
-                    else if (SPRING_KEYWORD.equals(type)) {
-                        model.add(springCommand(line));
+                    else 
+                    { 
+                    	if (SPRING_KEYWORD.equals(type)) {
+                    		model.add(springCommand(line));
+                    	}
+                    	else
+                    	{
+                    		if (MUSCLE_KEYWORD.equals(type)) {
+                        		model.add(muscleCommand(line));        
+                    		}
+                    	}
                     }
                 }
             }
@@ -53,13 +63,31 @@ public class Factory {
         double x = line.nextDouble();
         double y = line.nextDouble();
         double mass = line.nextDouble();
-        Mass result = new Mass(x, y, mass);
+        Mass result;
+        if (mass < 0)
+        {
+        	result = new FixedMass(x, y, mass);
+        }
+        else
+        {
+        	result = new Mass(x, y, mass);
+        }        
         myMasses.put(id,  result);
         return result;
     }
 
     // create spring from formatted data
     private Spring springCommand (Scanner line) {
+        Mass m1 = myMasses.get(line.nextInt());
+        Mass m2 = myMasses.get(line.nextInt());
+        double restLength = line.nextDouble();
+        double ks = line.nextDouble();
+        return new Spring(m1, m2, restLength, ks);
+    }
+    
+    //TODO: Muscle
+ // create spring from formatted data
+    private Spring muscleCommand (Scanner line) {
         Mass m1 = myMasses.get(line.nextInt());
         Mass m2 = myMasses.get(line.nextInt());
         double restLength = line.nextDouble();

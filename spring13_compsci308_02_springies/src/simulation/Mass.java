@@ -20,8 +20,14 @@ public class Mass extends Sprite {
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
 
     private double myMass;
-    private Vector myAcceleration;
+    
+    public double getMass() {
+		return myMass;
+	}
 
+	private Vector myAcceleration;
+
+    public static EnvironmentProperties myEnvironment;
 
     /**
      * XXX.
@@ -37,11 +43,23 @@ public class Mass extends Sprite {
      */
     @Override
     public void update (double elapsedTime, Dimension bounds) {
-        applyForce(getBounce(bounds));
+    	Vector bounce = getBounce(bounds);    	
+        applyForce(bounce);
+        
+                
         // convert force back into Mover's velocity
+        
+        // scale the acceleration by the mass of the object
+        myAcceleration.scale(1/myMass);
+        
+        if (bounce.getMagnitude() == 0)
+        {
+        	myEnvironment.applyGravity(this, elapsedTime);
+        }
+        
         getVelocity().sum(myAcceleration);
         myAcceleration.reset();
-        // move mass by velocity
+        // move mass by velocity        
         super.update(elapsedTime, bounds);
     }
 
@@ -57,8 +75,8 @@ public class Mass extends Sprite {
     /**
      * Use the given force to change this mass's acceleration.
      */
-    public void applyForce (Vector force) {
-        myAcceleration.sum(force);
+    public void applyForce (Vector force) {    	    	
+    	myAcceleration.sum(force);    	
     }
 
     /**
@@ -72,21 +90,30 @@ public class Mass extends Sprite {
 
     // check for move out of bounds
     private Vector getBounce (Dimension bounds) {
-        final double IMPULSE_MAGNITUDE = 2;
+        final double IMPULSE_MAGNITUDE = 2;        
         Vector impulse = new Vector();
-        if (getLeft() < 0) {
+        
+        int tolerance = 5;
+        
+        if (getLeft() < tolerance) {
             impulse = new Vector(RIGHT_DIRECTION, IMPULSE_MAGNITUDE);
         }
-        else if (getRight() > bounds.width) {
+        else if (getRight() + tolerance > bounds.width) {
             impulse = new Vector(LEFT_DIRECTION, IMPULSE_MAGNITUDE);
         }
-        if (getTop() < 0) {
+        if (getTop() < tolerance) {
             impulse = new Vector(DOWN_DIRECTION, IMPULSE_MAGNITUDE);
         }
-        else if (getBottom() > bounds.height) {
+        else if (getBottom() + tolerance > bounds.height) {
             impulse = new Vector(UP_DIRECTION, IMPULSE_MAGNITUDE);
         }
-        impulse.scale(getVelocity().getRelativeMagnitude(impulse));
+        
+        impulse.scale(getVelocity().getRelativeMagnitude(impulse));        
         return impulse;
+    }
+    
+    public void stopAcceleration()
+    {
+    	myAcceleration.reset();
     }
 }

@@ -50,7 +50,8 @@ public class Spring extends Sprite {
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         double dx = myStart.getX() - myEnd.getX();
-        double dy = myStart.getY() - myEnd.getY();
+        double dy = (myStart.getY() - myEnd.getY());
+        
         // apply hooke's law to each attached mass
         Vector force = new Vector(Vector.angleBetween(dx, dy), 
                                   myK * (myLength - Vector.distanceBetween(dx, dy)));

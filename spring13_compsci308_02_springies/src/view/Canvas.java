@@ -19,6 +19,8 @@ import java.util.TreeSet;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
+
+import simulation.EnvironmentProperties;
 import simulation.Factory;
 import simulation.Model;
 
@@ -43,7 +45,7 @@ public class Canvas extends JComponent {
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     // only one so that it maintains user's preferences
     private static final JFileChooser INPUT_CHOOSER = 
-            new JFileChooser(System.getProperties().getProperty("user.dir"));
+            new JFileChooser(System.getProperties().getProperty("user.dir") + "/src/data/");
     // input state
     public static final int NO_KEY_PRESSED = -1;
     public static final Point NO_MOUSE_PRESSED = null;
@@ -125,6 +127,7 @@ public class Canvas extends JComponent {
         // start animation
         mySimulation = new Model(this);
         loadModel();
+        loadEnvironment();
         myTimer.start();
     }
 
@@ -186,9 +189,25 @@ public class Canvas extends JComponent {
     // load model from file chosen by user
     private void loadModel () {
         Factory factory = new Factory();
+        INPUT_CHOOSER.setDialogTitle("Select Model Data");
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) {
             factory.loadModel(mySimulation, INPUT_CHOOSER.getSelectedFile());
+        }
+    }
+    
+ // load model from file chosen by user
+    private void loadEnvironment() {
+        EnvironmentProperties environment = new EnvironmentProperties();
+        INPUT_CHOOSER.setDialogTitle("Select Environment Data");
+        int response = INPUT_CHOOSER.showOpenDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            environment.loadEnvironment(mySimulation, INPUT_CHOOSER.getSelectedFile());
+        }
+        else
+        {
+        	environment.reset();
+        	mySimulation.setEnvironment(environment);
         }
     }
 }
