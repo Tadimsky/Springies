@@ -87,11 +87,12 @@ public class Factory {
     
     //TODO: Muscle
  // create spring from formatted data
-    private Spring muscleCommand (Scanner line) {
+    private Muscle muscleCommand (Scanner line) {
         Mass m1 = myMasses.get(line.nextInt());
         Mass m2 = myMasses.get(line.nextInt());
         double restLength = line.nextDouble();
         double ks = line.nextDouble();
-        return new Spring(m1, m2, restLength, ks);
+        double amp = line.nextDouble();
+        return new Muscle(m1, m2, restLength, ks, amp);
     }
 }

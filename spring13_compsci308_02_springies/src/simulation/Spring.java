@@ -42,6 +42,8 @@ public class Spring extends Sprite {
     public void paint (Graphics2D pen) {
         pen.setColor(getColor(myStart.distance(myEnd) - myLength));
         pen.drawLine((int)myStart.getX(), (int)myStart.getY(), (int)myEnd.getX(), (int)myEnd.getY());
+        Location l = getCenter(myStart, myEnd);
+        pen.drawOval((int)l.getX(), (int)l.getY(), 10, 10);
     }
 
     /**
@@ -54,7 +56,7 @@ public class Spring extends Sprite {
         
         // apply hooke's law to each attached mass
         Vector force = new Vector(Vector.angleBetween(dx, dy), 
-                                  myK * (myLength - Vector.distanceBetween(dx, dy)));
+                                  getKValue() * (myLength - Vector.distanceBetween(dx, dy)));
         myStart.applyForce(force);
         force.negate();
         myEnd.applyForce(force);
@@ -74,12 +76,34 @@ public class Spring extends Sprite {
     }
 
     // compute center of this spring
-    private static Location getCenter (Mass start, Mass end) {
+    protected static Location getCenter (Mass start, Mass end) {
         return new Location((start.getX() + end.getX()) / 2, (start.getY() + end.getY()) / 2);
     }
 
     // compute size of this spring
-    private static Dimension getSize (Mass start, Mass end) {
+    protected static Dimension getSize (Mass start, Mass end) {
         return new Dimension((int)start.distance(end), IMAGE_HEIGHT);
     }
+    
+    public double getRestLength()
+    {
+    	return myLength;
+    }
+    
+    public Mass getStartMass()
+    {
+    	return myStart;
+    }
+    
+    public Mass getEndMass()
+    {
+    	return myEnd;
+    }
+
+	/**
+	 * @return the myK
+	 */
+	public double getKValue() {
+		return myK;
+	}	
 }

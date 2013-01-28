@@ -1,5 +1,6 @@
 package simulation;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -110,13 +111,37 @@ public class EnvironmentProperties {
 		myWalls.clear();		
 	}
 	
+	public void applyEnvironment(Mass m, double elapsed)
+	{
+		applyGravity(m, elapsed);
+		applyViscosity(m, elapsed);
+	}
+	
 	
 	public void applyGravity(Mass m, double elapsed)
 	{
 		Vector g = new Vector(getMyGravity());
-		//g.scale(m.getMass());
+		g.scale(m.getMass());
         g.scale(elapsed);
         m.applyForce(g);
+	}
+	
+	public void applyViscosity(Mass m, double elapsed)
+	{
+		Vector visc = new Vector(m.getVelocity());
+		visc.scale(myViscosity);
+		visc.scale(elapsed);
+		visc.negate();
+		m.applyForce(visc);
+	}
+	
+	public void applyWallRepulsion(Mass m, double elapsed, Dimension bounds)
+	{
+		for (WallRepulsion wr : myWalls)
+		{
+			Vector repel = wr.getRepulsionForce(m, elapsed, bounds);
+			m.applyForce(repel);
+		}
 	}
 	
 }

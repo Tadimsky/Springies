@@ -45,14 +45,12 @@ public class Mass extends Sprite {
     public void update (double elapsedTime, Dimension bounds) {
     	Vector bounce = getBounce(bounds);    	
         applyForce(bounce);
-        
-                
+                        
         // convert force back into Mover's velocity
+        myEnvironment.applyViscosity(this, elapsedTime);
+        myEnvironment.applyWallRepulsion(this, elapsedTime, bounds);
         
-        // scale the acceleration by the mass of the object
-        myAcceleration.scale(1/myMass);
-        
-        if (bounce.getMagnitude() == 0)
+        if (bounce.getYChange() == 0)
         {
         	myEnvironment.applyGravity(this, elapsedTime);
         }
@@ -75,8 +73,11 @@ public class Mass extends Sprite {
     /**
      * Use the given force to change this mass's acceleration.
      */
-    public void applyForce (Vector force) {    	    	
-    	myAcceleration.sum(force);    	
+    public void applyForce (Vector force) 
+    {
+    	Vector scaled = new Vector(force);
+    	scaled.scale(1 / getMass());
+    	myAcceleration.sum(scaled);    	
     }
 
     /**
@@ -93,12 +94,12 @@ public class Mass extends Sprite {
         final double IMPULSE_MAGNITUDE = 2;        
         Vector impulse = new Vector();
         
-        int tolerance = 5;
+        int tolerance = 10;
         
         if (getLeft() < tolerance) {
             impulse = new Vector(RIGHT_DIRECTION, IMPULSE_MAGNITUDE);
         }
-        else if (getRight() + tolerance > bounds.width) {
+        else if (getRight() - tolerance > bounds.width) {
             impulse = new Vector(LEFT_DIRECTION, IMPULSE_MAGNITUDE);
         }
         if (getTop() < tolerance) {
@@ -107,7 +108,7 @@ public class Mass extends Sprite {
         else if (getBottom() + tolerance > bounds.height) {
             impulse = new Vector(UP_DIRECTION, IMPULSE_MAGNITUDE);
         }
-        
+        impulse.scale(getMass());
         impulse.scale(getVelocity().getRelativeMagnitude(impulse));        
         return impulse;
     }

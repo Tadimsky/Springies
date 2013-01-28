@@ -1,6 +1,8 @@
 package simulation;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 
 public class FixedMass extends Mass {
 
@@ -13,5 +15,10 @@ public class FixedMass extends Mass {
 	{
 		// do nothing because it is fixed
 	}
-
+	
+	@Override
+    public void paint (Graphics2D pen) {
+        pen.setColor(Color.BLACK);
+        pen.fillRect((int)getLeft(), (int)getTop(), (int)getWidth(), (int)getHeight());
+    }
 }
