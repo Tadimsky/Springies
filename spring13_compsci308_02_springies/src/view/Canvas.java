@@ -202,12 +202,12 @@ public class Canvas extends JComponent {
         INPUT_CHOOSER.setDialogTitle("Select Environment Data");
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) {
-            environment.loadEnvironment(mySimulation, INPUT_CHOOSER.getSelectedFile());
+            environment.loadEnvironment(INPUT_CHOOSER.getSelectedFile());
         }
         else
         {
-        	environment.reset();
-        	mySimulation.setEnvironment(environment);
+        	environment.reset();        	
         }
+        mySimulation.setEnvironment(environment);
     }
 }

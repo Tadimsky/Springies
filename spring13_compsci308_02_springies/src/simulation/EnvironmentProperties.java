@@ -32,7 +32,7 @@ public class EnvironmentProperties {
 		return myCenterofMass;
 	}
 
-	public void loadEnvironment(Model model, File modelFile) {
+	public void loadEnvironment(File modelFile) {
 		reset();
 		
         try {
@@ -70,8 +70,6 @@ public class EnvironmentProperties {
             // should not happen because File came from user selection
             e.printStackTrace();
         }
-        
-        model.setEnvironment(this);
     }
 	
 	private void gravityCommand(Scanner s)
