@@ -20,15 +20,15 @@ public class EnvironmentProperties {
     private CenterOfMass myCenterofMass;
     private ArrayList<WallRepulsion> myWalls = new ArrayList<WallRepulsion>();    
 	
-	public Vector getMyGravity() {
+	public Vector getGravity() {
 		return myGravity;
 	}
 
-	public double getMyViscosity() {
+	public double getViscosity() {
 		return myViscosity;
 	}
 
-	public CenterOfMass getMyCenterofMass() {
+	public CenterOfMass getCenterofMass() {
 		return myCenterofMass;
 	}
 
@@ -111,37 +111,46 @@ public class EnvironmentProperties {
 		myWalls.clear();		
 	}
 	
-	public void applyEnvironment(Mass m, double elapsed)
+	public void applyGravity(Mass m)
 	{
-		applyGravity(m, elapsed);
-		applyViscosity(m, elapsed);
-	}
-	
-	
-	public void applyGravity(Mass m, double elapsed)
-	{
-		Vector g = new Vector(getMyGravity());
+		Vector g = new Vector(getGravity());
 		g.scale(m.getMass());
-        g.scale(elapsed);
         m.applyForce(g);
 	}
 	
-	public void applyViscosity(Mass m, double elapsed)
+	public void applyViscosity(Mass m)
 	{
 		Vector visc = new Vector(m.getVelocity());
 		visc.scale(myViscosity);
-		visc.scale(elapsed);
 		visc.negate();
 		m.applyForce(visc);
 	}
 	
-	public void applyWallRepulsion(Mass m, double elapsed, Dimension bounds)
+	public void applyWallRepulsion(Mass m, Dimension bounds)
 	{
 		for (WallRepulsion wr : myWalls)
 		{
-			Vector repel = wr.getRepulsionForce(m, elapsed, bounds);
+			Vector repel = wr.getForce(m, bounds);
 			m.applyForce(repel);
 		}
+	}
+	
+	public void applyCenterOfMass(Mass m)
+	{
+		Vector force = myCenterofMass.getForce(m);
+		m.applyForce(force);
+	}
+	
+	/**
+	 * This applies environment forces other than gravity to the mass.	 * 
+	 * @param m the mass to apply the forces to
+	 * @param bounds the bounds of the screen
+	 */
+	public void applyEnvironment(Mass m, Dimension bounds)
+	{
+		applyViscosity(m);
+		applyWallRepulsion(m, bounds);
+		applyCenterOfMass(m);
 	}
 	
 }

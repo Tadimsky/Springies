@@ -43,7 +43,7 @@ public class Spring extends Sprite {
         pen.setColor(getColor(myStart.distance(myEnd) - myLength));
         pen.drawLine((int)myStart.getX(), (int)myStart.getY(), (int)myEnd.getX(), (int)myEnd.getY());
         Location l = getCenter(myStart, myEnd);
-        pen.drawOval((int)l.getX(), (int)l.getY(), 10, 10);
+        pen.drawOval((int)l.getX() + 5, (int)l.getY() + 5, 10, 10);
     }
 
     /**
@@ -88,6 +88,11 @@ public class Spring extends Sprite {
     public double getRestLength()
     {
     	return myLength;
+    }
+    
+    public void setLength(double len)
+    {
+    	myLength = len;
     }
     
     public Mass getStartMass()

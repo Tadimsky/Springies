@@ -39,12 +39,15 @@ public class Model {
         for (Mass m : myMasses) {
             m.paint(pen);
         }
+        if (myEnvironment != null)
+        	myEnvironment.getCenterofMass().draw(pen);
     }
 
     /**
      * Update simulation for this moment, given the time since the last moment.
      */
     public void update (double elapsedTime) {
+    	myEnvironment.getCenterofMass().calculateCenterOfMass(myMasses);    	
         Dimension bounds = myView.getSize();
         for (Spring s : mySprings) {
             s.update(elapsedTime, bounds);

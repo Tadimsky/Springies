@@ -47,12 +47,12 @@ public class Mass extends Sprite {
         applyForce(bounce);
                         
         // convert force back into Mover's velocity
-        myEnvironment.applyViscosity(this, elapsedTime);
-        myEnvironment.applyWallRepulsion(this, elapsedTime, bounds);
+        myEnvironment.applyEnvironment(this, bounds);
         
+        // only apply gravity if not bouncing
         if (bounce.getYChange() == 0)
         {
-        	myEnvironment.applyGravity(this, elapsedTime);
+        	myEnvironment.applyGravity(this);
         }
         
         getVelocity().sum(myAcceleration);
