@@ -59,6 +59,7 @@ public class Mass extends Sprite {
         myAcceleration.reset();
         // move mass by velocity        
         super.update(elapsedTime, bounds);
+        System.out.println("mass");
     }
 
     /**

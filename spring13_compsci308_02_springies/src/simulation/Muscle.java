@@ -21,12 +21,13 @@ public class Muscle extends Spring {
     public void update (double elapsedTime, Dimension bounds) {
 		double newLength = 0;
 		totalTime += elapsedTime;		
-		double avgmass = Math.abs(getStartMass().getMass() + getEndMass().getMass());
+		double avgmass = Math.abs(getStartMass().getMass()) + Math.abs(getEndMass().getMass());
 		avgmass /= 2;		
 		double omega = Math.sqrt(avgmass / getKValue());
 		newLength = Math.abs(Math.sin(omega * totalTime)*myAmplitude + originalLength);
 		this.setLength(newLength);
 		super.update(elapsedTime, bounds);
+		System.out.println("muscle");
     }
 
 }

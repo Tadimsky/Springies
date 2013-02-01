@@ -14,6 +14,7 @@ public class FixedMass extends Mass {
 	public void update(double elapsedTime, Dimension bounds)
 	{
 		// do nothing because it is fixed
+		System.out.println("fixedmass");
 	}
 	
 	@Override
