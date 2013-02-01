@@ -21,4 +21,9 @@ public class FixedMass extends Mass {
         pen.setColor(Color.BLACK);
         pen.fillRect((int)getLeft(), (int)getTop(), (int)getWidth(), (int)getHeight());
     }
+    
+    public void applyForce(Vector v)
+    {
+    	// do nothing because it is fixed.
+    }
 }
