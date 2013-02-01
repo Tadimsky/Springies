@@ -6,7 +6,7 @@ import java.util.List;
 
 import util.Location;
 import util.Vector;
-
+// trial
 public class CenterOfMass extends Force {
 
 	private Location myLocation;
