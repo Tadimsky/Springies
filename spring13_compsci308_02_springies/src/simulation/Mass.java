@@ -14,9 +14,10 @@ import util.Vector;
  * 
  * @author Robert C. Duvall
  */
-public class Mass extends Sprite {    
+public class Mass extends Sprite {
     // reasonable default values
     public static final Dimension DEFAULT_SIZE = new Dimension(16, 16);
+    
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
 
     private double myMass;

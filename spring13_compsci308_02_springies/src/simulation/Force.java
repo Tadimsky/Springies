@@ -2,6 +2,12 @@ package simulation;
 
 import util.Vector;
 
+/**
+ * Used as a super class to forces that apply a force based on the distances away from a Mass
+ * These include WallRepulsion and CenterOfMass
+ * @author Jonno
+ *
+ */
 public abstract class Force {
 
 	private double myMagnitude;

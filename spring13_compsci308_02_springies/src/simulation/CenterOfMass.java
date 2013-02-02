@@ -1,6 +1,7 @@
 package simulation;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import util.Vector;
 public class CenterOfMass extends Force {
 
 	private Location myLocation;
+	
+	public static final Dimension DEFAULT_SIZE = new Dimension(20, 20); 
 	
 	public CenterOfMass(double Magnitude, double Exponent) {
 		super(Magnitude, Exponent);		
@@ -60,7 +63,7 @@ public class CenterOfMass extends Force {
 	public void draw(Graphics2D pen)
 	{
 		pen.setColor(Color.pink);
-		pen.drawOval((int)myLocation.getX() + 10, (int)myLocation.getY() + 10, 20, 20);
+		pen.drawOval((int)myLocation.getX() - (DEFAULT_SIZE.width / 2), (int)myLocation.getY() + (DEFAULT_SIZE.height / 2), DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 		pen.setColor(Color.black);
 	}
 }

@@ -2,8 +2,6 @@ package simulation;
 
 import java.awt.Dimension;
 
-import util.Vector;
-
 public class Muscle extends Spring {
 
 	private double myAmplitude;

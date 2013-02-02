@@ -1,10 +1,15 @@
-package simulation;
+package factory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import simulation.FixedMass;
+import simulation.Mass;
+import simulation.Model;
+import simulation.Muscle;
+import simulation.Spring;
 
 
 /**

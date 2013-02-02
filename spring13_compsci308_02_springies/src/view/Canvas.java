@@ -19,9 +19,9 @@ import java.util.TreeSet;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
+import factory.Factory;
 
 import simulation.EnvironmentProperties;
-import simulation.Factory;
 import simulation.Model;
 
 

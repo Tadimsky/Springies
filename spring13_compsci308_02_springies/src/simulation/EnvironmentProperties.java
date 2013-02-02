@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import util.Vector;
@@ -18,7 +19,7 @@ public class EnvironmentProperties {
     private Vector myGravity;
     private double myViscosity;
     private CenterOfMass myCenterofMass;
-    private ArrayList<WallRepulsion> myWalls = new ArrayList<WallRepulsion>();    
+    private List<WallRepulsion> myWalls = new ArrayList<WallRepulsion>();    
 	
 	public Vector getGravity() {
 		return myGravity;
