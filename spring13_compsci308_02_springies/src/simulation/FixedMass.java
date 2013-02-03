@@ -8,8 +8,8 @@ import util.Vector;
 
 public class FixedMass extends Mass {	
 
-	public FixedMass(double x, double y, double mass) {
-		super(x, y, mass);		
+	public FixedMass(int id, double x, double y, double mass) {
+		super(id, x, y, mass);		
 	}
 	
 	@Override

@@ -20,6 +20,7 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
 import factory.Factory;
+import factory.ModelFactory;
 
 import simulation.EnvironmentProperties;
 import simulation.Model;
@@ -188,11 +189,17 @@ public class Canvas extends JComponent {
 
     // load model from file chosen by user
     private void loadModel () {
-        Factory factory = new Factory();
-        INPUT_CHOOSER.setDialogTitle("Select Model Data");
-        int response = INPUT_CHOOSER.showOpenDialog(null);
-        if (response == JFileChooser.APPROVE_OPTION) {
-            factory.loadModel(mySimulation, INPUT_CHOOSER.getSelectedFile());
+        ModelFactory factory;
+        try {
+            factory = new ModelFactory();
+            INPUT_CHOOSER.setDialogTitle("Select Model Data");
+            int response = INPUT_CHOOSER.showOpenDialog(null);
+            if (response == JFileChooser.APPROVE_OPTION) {
+                factory.loadModel(mySimulation, INPUT_CHOOSER.getSelectedFile());
+            }
+        }
+        catch (Exception e) {            
+            e.printStackTrace();
         }
     }
     

@@ -3,6 +3,7 @@ package simulation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.Scanner;
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -14,7 +15,7 @@ import util.Vector;
  * 
  * @author Robert C. Duvall
  */
-public class Mass extends Sprite {
+public class Mass extends Sprite implements ISimulationEntity{
     // reasonable default values
     public static final Dimension DEFAULT_SIZE = new Dimension(16, 16);
     
@@ -30,13 +31,16 @@ public class Mass extends Sprite {
 
     public static EnvironmentProperties myEnvironment;
 
+    private int myId;
+
     /**
      * XXX.
      */
-    public Mass (double x, double y, double mass) {
+    public Mass (int id, double x, double y, double mass) {
         super(DEFUALT_IMAGE, new Location(x, y), DEFAULT_SIZE);
         myMass = mass;
         myAcceleration = new Vector();
+        myId = id;
     }
 
     /**
@@ -118,4 +122,29 @@ public class Mass extends Sprite {
     {
     	myAcceleration.reset();
     }
+    
+    public static Mass createEntity(Scanner line) {
+        int id = line.nextInt();
+        double x = line.nextDouble();
+        double y = line.nextDouble();
+        double mass = line.nextDouble();
+        Mass result;
+        if (mass < 0)
+        {
+                result = new FixedMass(id, x, y, mass);
+        }
+        else
+        {
+                result = new Mass(id, x, y, mass);
+        }        
+        
+        return result;
+    }
+
+    /**
+     * @return the ID of the mass
+     */
+    public int getId () {
+        return myId;
+    }   
 }

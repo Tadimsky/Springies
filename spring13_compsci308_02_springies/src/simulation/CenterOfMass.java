@@ -19,18 +19,22 @@ public class CenterOfMass extends Force {
 		myLocation = new Location();
 	}
 	
-	public void calculateCenterOfMass(List<Mass> masses)
+	public void calculateCenterOfMass(List<ISimulationEntity> myEntities)
 	{		
 		double cX = 0;
 		double cY = 0;
 		double totalMass = 0;
 		
-		for (Mass m : masses)
+		for (ISimulationEntity m : myEntities)
 		{
-			double mass = Math.abs(m.getMass());
-			cX += m.getX() * mass;
-			cY += m.getY() * mass;
-			totalMass += mass;			
+		    if (m instanceof Mass)
+		    {
+		        Mass cur = (Mass)m;
+			double mass = Math.abs(cur.getMass());
+			cX += cur.getX() * mass;
+			cY += cur.getY() * mass;
+			totalMass += mass;
+		    }
 		}		
 		
 		cX = cX / totalMass;
