@@ -15,8 +15,8 @@ public class EnvironmentProperties {
     private static final String CENTEROFMASS_KEYWORD = "centerofmass";
     private static final String WALLREPULSION_KEYWORD = "wall";
 
-    private Vector myGravity;
-    private double myViscosity;
+    private Gravity myGravity;
+    private Viscosity myViscosity;
     private CenterOfMass myCenterofMass;
     private ArrayList<WallRepulsion> myWalls = new ArrayList<WallRepulsion>();    
 	
@@ -42,7 +42,7 @@ public class EnvironmentProperties {
                 if (line.hasNext()) {
                     String type = line.next();
                     if (GRAVITY_KEYWORD.equals(type)) {
-                        gravityCommand(line);
+                        myGravity.;
                     }
                     else 
                     { 
@@ -72,12 +72,7 @@ public class EnvironmentProperties {
         }
     }
 	
-	private void gravityCommand(Scanner s)
-	{
-		double degrees = s.nextDouble();
-		double magnitude = s.nextDouble();
-		myGravity = new Vector(degrees, magnitude);
-	}
+	
 	
 	private void viscosityCommand(Scanner s)
 	{
