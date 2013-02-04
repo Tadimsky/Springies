@@ -19,10 +19,11 @@ import java.util.TreeSet;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
+import physics.EnvironmentProperties;
+import factory.EnvironmentFactory;
 import factory.Factory;
 import factory.ModelFactory;
 
-import simulation.EnvironmentProperties;
 import simulation.Model;
 
 
@@ -205,16 +206,13 @@ public class Canvas extends JComponent {
     
  // load model from file chosen by user
     private void loadEnvironment() {
-        EnvironmentProperties environment = new EnvironmentProperties();
+        EnvironmentFactory ef = new EnvironmentFactory();        
         INPUT_CHOOSER.setDialogTitle("Select Environment Data");
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) {
-            environment.loadEnvironment(INPUT_CHOOSER.getSelectedFile());
-        }
-        else
-        {
-        	environment.reset();        	
-        }
-        mySimulation.setEnvironment(environment);
+            ef.loadEnvironment(INPUT_CHOOSER.getSelectedFile());
+        }        
+        
+        mySimulation.setEnvironment(ef.getEnvironment());
     }
 }

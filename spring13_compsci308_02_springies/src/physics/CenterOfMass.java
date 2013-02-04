@@ -1,10 +1,13 @@
-package simulation;
+package physics;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
+import java.util.Scanner;
 
+import simulation.ISimulationEntity;
+import simulation.Mass;
 import util.Location;
 import util.Vector;
 // trial
@@ -61,7 +64,8 @@ public class CenterOfMass extends Force {
 	{
 		double angle = getAngle(m);
 		double distance = getDistance(m);
-		return super.getForce(angle, distance);
+		Vector f = super.getForce(angle, distance);		
+		return f;
 	}
 	
 	public void draw(Graphics2D pen)
@@ -69,5 +73,12 @@ public class CenterOfMass extends Force {
 		pen.setColor(Color.pink);
 		pen.drawOval((int)myLocation.getX() - (DEFAULT_SIZE.width / 2), (int)myLocation.getY() + (DEFAULT_SIZE.height / 2), DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 		pen.setColor(Color.black);
+	}
+	
+	public static CenterOfMass createEntity(Scanner s)
+	{
+	    double magnitude = s.nextDouble();
+            double exponent = s.nextDouble();
+            return new CenterOfMass(magnitude, exponent);
 	}
 }

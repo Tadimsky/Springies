@@ -44,6 +44,8 @@ public class Spring extends Sprite implements ISimulationEntity {
     public void paint (Graphics2D pen) {
         pen.setColor(getColor(myStart.distance(myEnd) - myLength));
         pen.drawLine((int)myStart.getX(), (int)myStart.getY(), (int)myEnd.getX(), (int)myEnd.getY());
+
+        //pen.drawLine((int)myEnd.getX(), (int)myEnd.getY()+100, (int)(myEnd.getX() - myLength), (int)myEnd.getY()+100 );
         /*
         Location l = getCenter(myStart, myEnd);
         pen.drawOval((int)l.getX() + 5, (int)l.getY() + 5, 10, 10);

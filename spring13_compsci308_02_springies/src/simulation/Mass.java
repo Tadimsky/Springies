@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Scanner;
+import physics.EnvironmentProperties;
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -49,21 +50,29 @@ public class Mass extends Sprite implements ISimulationEntity{
     @Override
     public void update (double elapsedTime, Dimension bounds) {
     	Vector bounce = getBounce(bounds);    	
-        applyForce(bounce);
-                        
-        // convert force back into Mover's velocity
-        myEnvironment.applyEnvironment(this, bounds);
-        
+        applyForce(bounce);                        
+       
+        applyForce(myEnvironment.getEnvironment(this, bounds));
         // only apply gravity if not bouncing
         if (bounce.getYChange() == 0)
         {
-        	myEnvironment.applyGravity(this);
+            applyForce(myEnvironment.getGravity(this));        	
         }
         
         getVelocity().sum(myAcceleration);
+        clampVelocity();
         myAcceleration.reset();
-        // move mass by velocity        
+        // move mass by velocity
         super.update(elapsedTime, bounds);
+    }
+    
+    private void clampVelocity()
+    {
+        double scale = Math.abs(2000 / getVelocity().getMagnitude());
+        if (scale < 1)
+        {
+            getVelocity().scale(scale);
+        }
     }
 
     /**

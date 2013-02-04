@@ -8,6 +8,7 @@ import java.util.Scanner;
 import simulation.ISimulationEntity;
 import simulation.Mass;
 import simulation.Model;
+import simulation.Muscle;
 import simulation.Spring;
 
 public class ModelFactory extends Factory {
@@ -31,7 +32,7 @@ public class ModelFactory extends Factory {
         
         registerCreation("muscle", new IFactoryCreation() {
             public Object createItem (Scanner s) throws Exception {                
-                return Spring.createEntity(s, myMasses);                         
+                return Muscle.createEntity(s, myMasses);                         
             }
         });
     }

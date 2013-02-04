@@ -23,8 +23,8 @@ public class Muscle extends Spring implements ISimulationEntity{
         totalTime += elapsedTime;		
         double avgmass = Math.abs(getStartMass().getMass() + getEndMass().getMass());
         avgmass /= 2;		
-        double omega = Math.sqrt(avgmass / getKValue());
-        newLength = Math.abs(Math.sin(omega * totalTime)*myAmplitude + originalLength);
+        double omega = Math.sqrt(avgmass / getKValue());        
+        newLength = originalLength + Math.sin(omega * totalTime)*myAmplitude;        
         this.setLength(newLength);
         super.update(elapsedTime, bounds);
     }
