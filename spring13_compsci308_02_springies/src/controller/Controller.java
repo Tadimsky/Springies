@@ -2,36 +2,63 @@ package controller;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import physics.CenterOfMass;
 import physics.Gravity;
 import physics.Viscosity;
 import physics.WallRepulsion;
+import simulation.FixedMass;
+import simulation.Mass;
 import simulation.Model;
+import simulation.Spring;
+import util.Location;
 
 public class Controller{
     
     private Model mySimulation;
     
-    private Map<Integer, Control> controlMap = new HashMap<Integer, Control>();
+    private Map<Integer, KeyControl> controlMap = new HashMap<Integer, KeyControl>();
+    private MouseControl mouseControl;
     
     public Controller (Model sim) 
     {
         mySimulation = sim;
         registerToggles();
         registerCommands();
+        mouseControl = new MouseControl(mySimulation);
     }
     
-    public void processKeys()
+    public void update()
     {
-        Control tc = controlMap.get(mySimulation.getView().getLastKeyPressed());
+        processKeys();
+        processMouse();
+    }
+    
+    private void processKeys()
+    {
+        KeyControl tc = controlMap.get(mySimulation.getView().getLastKeyPressed());
         if (tc != null)
             tc.Activate();
     }
     
-    private void addControl(Control control)
+    private void processMouse()
+    {
+        if (mySimulation.getView().getLastMousePosition() == null)
+        {
+            mouseControl.releaseMouse();
+        }
+        else
+        {
+            mouseControl.clickMouse();
+        }
+        mouseControl.moveMouse();
+    }
+    
+    private void addControl(KeyControl control)
     {
         controlMap.put(control.getKey(), control);
     }

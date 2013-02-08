@@ -1,6 +1,6 @@
 package controller;
 
-public abstract class CommandControl extends Control {
+public abstract class CommandControl extends KeyControl {
 
     
     public CommandControl (int Key) {

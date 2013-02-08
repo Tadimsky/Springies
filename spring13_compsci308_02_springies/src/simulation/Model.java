@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -9,6 +10,7 @@ import controller.Controller;
 import factory.EnvironmentFactory;
 import factory.ModelFactory;
 import physics.EnvironmentProperties;
+import util.Location;
 import view.Canvas;
 
 
@@ -71,8 +73,8 @@ public class Model {
      */
     public void update (double elapsedTime) {        
         Dimension bounds = sumDimensions(myChangeBounds, myView.getSize());
-        myController.processKeys();
-        
+        myController.update();
+                
     	myEnvironment.getCenterofMass().calculateCenterOfMass(myEntities);    	
         
         
@@ -141,6 +143,30 @@ public class Model {
      */
     public Canvas getView () {
         return myView;
+    }
+    
+    public Mass findNearest(Point p)
+    {
+        Mass closest = null;
+        double minD = Double.MAX_VALUE;
+        for (ISimulationEntity s : myEntities)
+        {
+            if (s instanceof Mass)
+            {
+                if (!(s instanceof FixedMass))
+                {
+                    Mass cur = (Mass)s;                    
+                    double distance = Location.distance(p.getX(), p.getY(), cur.getX(), cur.getY());
+                    System.out.println(distance);
+                    if (distance < minD)
+                    {
+                        closest = cur;
+                        minD = distance;
+                    }
+                }
+            }
+        }
+        return closest;
     }
 
 }

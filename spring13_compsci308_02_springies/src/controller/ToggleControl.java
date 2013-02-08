@@ -1,6 +1,6 @@
 package controller;
 
-public abstract class ToggleControl extends Control {
+public abstract class ToggleControl extends KeyControl {
 
     private boolean isActive;
     

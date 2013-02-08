@@ -1,10 +1,10 @@
 package controller;
 
-public abstract class Control {
+public abstract class KeyControl {
     
     private int myKeyCode;
     
-    public Control (int Key) {
+    public KeyControl (int Key) {
         myKeyCode = Key;
     }
     
