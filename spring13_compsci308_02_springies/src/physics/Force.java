@@ -40,13 +40,15 @@ public abstract class Force {
     public Vector getForce (double angle, double distance)
     {
         Vector repel = new Vector(angle, myMagnitude);
-        if (getExponent() == 2)
-        {
-            double scaleamount = 1 / Math.pow(distance / 100, 2);
-            System.out.println(scaleamount);
-            repel.scale(scaleamount);
-        }
-        // else constant force
+        
+        double scaleamount = 1 / Math.pow(distance / 100, getExponent());            
+        repel.scale(scaleamount);
+        
         return repel;
+    }
+    
+    public void setMagnitude(double m)
+    {
+        myMagnitude = m;
     }
 }

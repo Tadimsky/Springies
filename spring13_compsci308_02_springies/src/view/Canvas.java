@@ -146,6 +146,7 @@ public class Canvas extends JComponent {
     public void step () {
         mySimulation.update((double)FRAMES_PER_SECOND / ONE_SECOND);
         // indirectly causes paint to be called
+        myLastKeyPressed = NO_KEY_PRESSED;
         repaint();
     }
 

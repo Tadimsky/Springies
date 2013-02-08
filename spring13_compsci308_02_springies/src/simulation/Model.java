@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import controller.Controller;
 import factory.EnvironmentFactory;
 import factory.ModelFactory;
 import physics.EnvironmentProperties;
@@ -19,12 +20,15 @@ import view.Canvas;
 public class Model {
     // bounds and input for game
     private Canvas myView;
+    
     // simulation state
     private List<ISimulationEntity> myEntities;
     
     private EnvironmentProperties myEnvironment;
     
     private Controller myController;
+    
+    private Dimension myChangeBounds;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -33,6 +37,7 @@ public class Model {
         myView = canvas;   
         myEntities = new ArrayList<ISimulationEntity>();
         myController = new Controller(this);
+        myChangeBounds = new Dimension();
     }
 
     /**
@@ -49,15 +54,27 @@ public class Model {
         if (myEnvironment != null)
         	myEnvironment.getCenterofMass().draw(pen);
     }
+    
+    public void changeBounds(double amnt)
+    {        
+        myChangeBounds.height += amnt;
+        myChangeBounds.width += amnt;
+    }
+    
+    private Dimension sumDimensions(Dimension dO, Dimension dT)
+    {
+        return new Dimension(dO.width + dT.width, dO.height + dT.height);
+    }
 
     /**
      * Update simulation for this moment, given the time since the last moment.
      */
-    public void update (double elapsedTime) {
+    public void update (double elapsedTime) {        
+        Dimension bounds = sumDimensions(myChangeBounds, myView.getSize());
         myController.processKeys();
         
     	myEnvironment.getCenterofMass().calculateCenterOfMass(myEntities);    	
-        Dimension bounds = myView.getSize(); 
+        
         
         for (ISimulationEntity entity : myEntities)
         {
@@ -79,6 +96,13 @@ public class Model {
     {
     	myEnvironment = ep;
     	Mass.Environment = ep;
+    }
+    
+    /**
+     * @return the Environment
+     */
+    public EnvironmentProperties getEnvironment () {
+        return myEnvironment;
     }
 
     /**
@@ -111,4 +135,12 @@ public class Model {
             setEnvironment(new EnvironmentProperties());
         }
     }
+    
+    /**
+     * @return the Canvas
+     */
+    public Canvas getView () {
+        return myView;
+    }
+
 }
