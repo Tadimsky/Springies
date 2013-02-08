@@ -70,6 +70,7 @@ public class Spring extends Sprite implements ISimulationEntity {
         setCenter(getCenter(myStart, myEnd));
         setSize(getSize(myStart, myEnd));
         setVelocity(Vector.angleBetween(dx, dy), 0);
+        System.out.println("spring");
     }
 
     /**
