@@ -64,7 +64,6 @@ public class Mass extends Sprite implements ISimulationEntity {
         myAcceleration.reset();
         // move mass by velocity
         super.update(elapsedTime, bounds);
-        System.out.println("mass");
     }
 
     private void clampVelocity ()
