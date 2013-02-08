@@ -1,13 +1,13 @@
 package factory;
 
 import java.io.File;
-import java.util.List;
 import java.util.Scanner;
 import physics.CenterOfMass;
 import physics.EnvironmentProperties;
 import physics.Gravity;
 import physics.Viscosity;
 import physics.WallRepulsion;
+import simulation.Model;
 
 public class EnvironmentFactory extends Factory {
 
@@ -47,15 +47,19 @@ public class EnvironmentFactory extends Factory {
         });
     }
     
-    public void loadEnvironment(File modelFile)
+    public void load(File modelFile)
     {    
-        //List<Object> environment =
-        super.loadModel(modelFile);
+        load(null, modelFile);
     }
     
     public EnvironmentProperties getEnvironment()
     {
         return ep;
+    }
+
+    @Override
+    public void load (Model model, File file) {
+        super.loadFile(file);
     }
 
 }

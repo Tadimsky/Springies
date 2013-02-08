@@ -1,11 +1,8 @@
 package physics;
 
 import java.awt.Dimension;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import simulation.Mass;
 import util.Vector;
 
@@ -52,17 +49,7 @@ public class EnvironmentProperties {
         myViscosity = new Viscosity(0);
         myCenterofMass = new CenterOfMass(0, 0);
         myWalls.clear();
-    }
-
-    public Vector getGravity (Mass m)
-    {
-        return myGravity.getForce(m);
-    }
-
-    public Vector getViscosity (Mass m)
-    {
-        return myViscosity.getForce(m);
-    }
+    }   
 
     public Vector getWallRepulsion (Mass m, Dimension bounds)
     {
@@ -73,14 +60,15 @@ public class EnvironmentProperties {
         }
         return result;
     }
-
-    public Vector getCenterOfMass (Mass m)
+    
+    public Vector getGravity(Mass m)
     {
-        return myCenterofMass.getForce(m);
+        return myGravity.getForce(m);
     }
 
     /**
-     * This returns a Vector containing all the forces other than gravity that will will be applied
+     * This returns a Vector containing all the forces other than
+     * gravity that will will be applied
      * to the Mass.
      * 
      * @param m the mass to apply the forces to
@@ -89,9 +77,9 @@ public class EnvironmentProperties {
     public Vector getEnvironment (Mass m, Dimension bounds)
     {
         Vector result = new Vector();
-        result.sum(getViscosity(m));
+        result.sum(myViscosity.getForce(m));
         result.sum(getWallRepulsion(m, bounds));
-        result.sum(getCenterOfMass(m));
+        result.sum(myCenterofMass.getForce(m));
         return result;
     }
 

@@ -16,21 +16,21 @@ import util.Vector;
  * 
  * @author Robert C. Duvall
  */
-public class Mass extends Sprite implements ISimulationEntity{
+public class Mass extends Sprite implements ISimulationEntity {
     // reasonable default values
     public static final Dimension DEFAULT_SIZE = new Dimension(16, 16);
-    
+
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
 
     private double myMass;
-    
-    public double getMass() {
-		return myMass;
-	}
 
-	private Vector myAcceleration;
+    public double getMass () {
+        return myMass;
+    }
 
-    public static EnvironmentProperties myEnvironment;
+    private Vector myAcceleration;
+
+    public static EnvironmentProperties Environment;
 
     private int myId;
 
@@ -49,24 +49,24 @@ public class Mass extends Sprite implements ISimulationEntity{
      */
     @Override
     public void update (double elapsedTime, Dimension bounds) {
-    	Vector bounce = getBounce(bounds);    	
-        applyForce(bounce);                        
-       
-        applyForce(myEnvironment.getEnvironment(this, bounds));
+        Vector bounce = getBounce(bounds);
+        applyForce(bounce);
+
+        applyForce(Environment.getEnvironment(this, bounds));
         // only apply gravity if not bouncing
         if (bounce.getYChange() == 0)
         {
-            applyForce(myEnvironment.getGravity(this));        	
+            applyForce(Environment.getGravity(this));
         }
-        
+
         getVelocity().sum(myAcceleration);
         clampVelocity();
         myAcceleration.reset();
         // move mass by velocity
         super.update(elapsedTime, bounds);
     }
-    
-    private void clampVelocity()
+
+    private void clampVelocity ()
     {
         double scale = Math.abs(2000 / getVelocity().getMagnitude());
         if (scale < 1)
@@ -81,17 +81,17 @@ public class Mass extends Sprite implements ISimulationEntity{
     @Override
     public void paint (Graphics2D pen) {
         pen.setColor(Color.BLACK);
-        pen.fillOval((int)getLeft(), (int)getTop(), (int)getWidth(), (int)getHeight());
+        pen.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
     }
 
     /**
      * Use the given force to change this mass's acceleration.
      */
-    public void applyForce (Vector force) 
+    public void applyForce (Vector force)
     {
-    	Vector scaled = new Vector(force);
-    	scaled.scale(1 / getMass());
-    	myAcceleration.sum(scaled);    	
+        Vector scaled = new Vector(force);
+        scaled.scale(1 / getMass());
+        myAcceleration.sum(scaled);
     }
 
     /**
@@ -102,14 +102,13 @@ public class Mass extends Sprite implements ISimulationEntity{
         return new Location(getX(), getY()).distance(new Location(other.getX(), other.getY()));
     }
 
-
     // check for move out of bounds
     private Vector getBounce (Dimension bounds) {
-        final double IMPULSE_MAGNITUDE = 2;        
+        final double IMPULSE_MAGNITUDE = 2;
         Vector impulse = new Vector();
-        
+
         int tolerance = 10;
-        
+
         if (getLeft() < tolerance) {
             impulse = new Vector(RIGHT_DIRECTION, IMPULSE_MAGNITUDE);
         }
@@ -123,16 +122,16 @@ public class Mass extends Sprite implements ISimulationEntity{
             impulse = new Vector(UP_DIRECTION, IMPULSE_MAGNITUDE);
         }
         impulse.scale(getMass());
-        impulse.scale(getVelocity().getRelativeMagnitude(impulse));        
+        impulse.scale(getVelocity().getRelativeMagnitude(impulse));
         return impulse;
     }
-    
-    public void stopAcceleration()
+
+    public void stopAcceleration ()
     {
-    	myAcceleration.reset();
+        myAcceleration.reset();
     }
-    
-    public static Mass createEntity(Scanner line) {
+
+    public static Mass createEntity (Scanner line) {
         int id = line.nextInt();
         double x = line.nextDouble();
         double y = line.nextDouble();
@@ -140,13 +139,13 @@ public class Mass extends Sprite implements ISimulationEntity{
         Mass result;
         if (mass < 0)
         {
-                result = new FixedMass(id, x, y, mass);
+            result = new FixedMass(id, x, y, mass);
         }
         else
         {
-                result = new Mass(id, x, y, mass);
-        }        
-        
+            result = new Mass(id, x, y, mass);
+        }
+
         return result;
     }
 
@@ -155,5 +154,5 @@ public class Mass extends Sprite implements ISimulationEntity{
      */
     public int getId () {
         return myId;
-    }   
+    }
 }

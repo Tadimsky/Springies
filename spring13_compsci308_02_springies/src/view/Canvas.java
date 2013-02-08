@@ -12,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -21,7 +22,6 @@ import javax.swing.JFileChooser;
 import javax.swing.Timer;
 import physics.EnvironmentProperties;
 import factory.EnvironmentFactory;
-import factory.Factory;
 import factory.ModelFactory;
 
 import simulation.Model;
@@ -128,8 +128,8 @@ public class Canvas extends JComponent {
             });
         // start animation
         mySimulation = new Model(this);
-        loadModel();
-        loadEnvironment();
+        mySimulation.loadModel();
+        mySimulation.loadEnvironment();
         myTimer.start();
     }
 
@@ -187,32 +187,15 @@ public class Canvas extends JComponent {
             }
         });
     }
-
-    // load model from file chosen by user
-    private void loadModel () {
-        ModelFactory factory;
-        try {
-            factory = new ModelFactory();
-            INPUT_CHOOSER.setDialogTitle("Select Model Data");
-            int response = INPUT_CHOOSER.showOpenDialog(null);
-            if (response == JFileChooser.APPROVE_OPTION) {
-                factory.loadModel(mySimulation, INPUT_CHOOSER.getSelectedFile());
-            }
-        }
-        catch (Exception e) {            
-            e.printStackTrace();
-        }
-    }
     
- // load model from file chosen by user
-    private void loadEnvironment() {
-        EnvironmentFactory ef = new EnvironmentFactory();        
+    public File selectFile(String prompt)
+    {
         INPUT_CHOOSER.setDialogTitle("Select Environment Data");
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) {
-            ef.loadEnvironment(INPUT_CHOOSER.getSelectedFile());
+            return INPUT_CHOOSER.getSelectedFile();
         }        
-        
-        mySimulation.setEnvironment(ef.getEnvironment());
+        return null;
     }
+    
 }

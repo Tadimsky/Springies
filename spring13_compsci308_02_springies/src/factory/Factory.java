@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import simulation.Model;
 
 /**
  * XXX
@@ -23,9 +24,10 @@ public abstract class Factory {
     /**
      * XXX.
      */
-    public List<Object> loadModel (File modelFile) {        
+    public List<Object> loadFile(File modelFile) {        
         try {
             ArrayList<Object> objects = new ArrayList<Object>();
+            
             Scanner input = new Scanner(modelFile);
             while (input.hasNext()) {
                 Scanner line = new Scanner(input.nextLine());
@@ -50,11 +52,16 @@ public abstract class Factory {
             return objects;
         }
         catch (FileNotFoundException e) {
-            // should not happen because File came from user selection
-            e.printStackTrace();
+            // should not happen because File came from user selection            
         }
         return null;
     }   
+    
+    /**
+     * Load the items from the specified file using the factory. 
+     * @param file The file containing the items to load in.
+     */
+    public abstract void load(Model model, File file);    
     
     public void registerCreation(String name, IFactoryCreation creation)
     {

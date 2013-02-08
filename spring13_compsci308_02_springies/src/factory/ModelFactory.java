@@ -37,9 +37,10 @@ public class ModelFactory extends Factory {
         });
     }
     
-    public void loadModel(Model model, File modelFile)
+    @Override
+    public void load(Model model, File modelFile)
     {
-        List<Object> objects = super.loadModel(modelFile);
+        List<Object> objects = super.loadFile(modelFile);
         for (Object o : objects)
         {
             model.add((ISimulationEntity)o);
