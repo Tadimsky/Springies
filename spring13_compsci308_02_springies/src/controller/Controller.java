@@ -1,111 +1,114 @@
-package controller;
+package Controller;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+
 import physics.CenterOfMass;
 import physics.Gravity;
 import physics.Viscosity;
 import physics.WallRepulsion;
+
 import simulation.Model;
 
-public class Controller{
-    
-    private Model mySimulation;
-    
-    private Map<Integer, Control> controlMap = new HashMap<Integer, Control>();
-    
-    public Controller (Model sim) 
-    {
-        mySimulation = sim;
-        registerToggles();
+public class Controller {
+
+	private Model mySimulation;
+	
+	private Map<Integer,KeyControl> myControls = new HashMap<Integer, KeyControl>();
+	
+
+    public Controller(Model model){
+    	mySimulation = model;
         registerCommands();
+        registerToggles();
+    }
+
+    public void addControls(KeyControl con){
+    	myControls.put(con.getKey(), con);
+    	
+    } 
+
+    public void processKeyCommands(){
+    	KeyControl keyCommand = myControls.get(mySimulation.getView().getLastKeyPressed());
+    	if(keyCommand != null){
+    		keyCommand.activate();
+    	}
     }
     
-    public void processKeys()
-    {
-        Control tc = controlMap.get(mySimulation.getView().getLastKeyPressed());
-        if (tc != null)
-            tc.Activate();
-    }
+    public void registerCommands(){
+    	
+    	addControls(new CommandControl(KeyEvent.VK_N){
+    		@Override
+    		public void  execute(){
+    			mySimulation.loadModel();
+    		}
+    	});
     
-    private void addControl(Control control)
-    {
-        controlMap.put(control.getKey(), control);
+        addControls(new CommandControl(KeyEvent.VK_C){
+        	@Override
+        	public void execute(){
+        		mySimulation.getEntities().clear();
+        	}
+        });
+   
     }
-    
-    private void registerToggles()    
-    {        
-        // Gravity
-        addControl(new ToggleControl(KeyEvent.VK_G) {       
-            @Override
-            public void Toggle () {                
-                 Gravity g = mySimulation.getEnvironment().getGravity(); 
-                 g.setMagnitude(doToggle(g.getMagnitude()));
-            }
-        });
-        // Viscosity
-        addControl(new ToggleControl(KeyEvent.VK_V) {       
-            @Override
-            public void Toggle () {                
-                 Viscosity v = mySimulation.getEnvironment().getViscosity(); 
-                 v.setMagnitude(doToggle(v.getMagnitude()));
-            }
-        });
-        // Center of Mass
-        addControl(new ToggleControl(KeyEvent.VK_M) {       
-            @Override
-            public void Toggle () {                
-                 CenterOfMass com = mySimulation.getEnvironment().getCenterofMass(); 
-                 com.setMagnitude(doToggle(com.getMagnitude()));
-            }
-        });
-        
-        // http://docs.oracle.com/javase/1.4.2/docs/api/constant-values.html#java.awt.event.KeyEvent.VK_0
-        for (int i = 1; i <= 4; i++)
-        {
-            // to pass in to function below
-            final int j = i;
-            addControl(new ToggleControl(i + 48) {       
-                @Override
-                public void Toggle () {
-                     WallRepulsion wr = mySimulation.getEnvironment().getWall(j);
-                     wr.setMagnitude(doToggle(wr.getMagnitude()));
-                }
-            });
-        }
+
+    public void registerToggles(){
+    	addControls(new ToggleControl(KeyEvent.VK_G){
+    		@Override
+    		public void Toggle(){
+    		   Gravity gra = mySimulation.getEnvironment().getGravity();
+    		   gra.setMagnitude(doToggle(gra.getMagnitude()));
+    		}
+    	});
+    	
+    	addControls(new ToggleControl(KeyEvent.VK_V){
+    		@Override
+    		public void Toggle(){
+    		   Viscosity vis = mySimulation.getEnvironment().getViscosity();
+    		   vis.setMagnitude(doToggle(vis.getMagnitude()));
+    		}
+    	});
+    	
+    	addControls(new ToggleControl(KeyEvent.VK_M){
+    		@Override
+    		public void Toggle(){
+    			CenterOfMass cen = mySimulation.getEnvironment().getCenterofMass();
+    			cen.setMagnitude(doToggle(cen.getMagnitude()));
+    		}
+    	});
+    	for(int i=1 ;i<5;i++){
+    		final int j = i;
+    		addControls(new ToggleControl(i+48){
+    			@Override
+    			public void Toggle(){
+    			   WallRepulsion wal = mySimulation.getEnvironment().getWall(j);
+    			   wal.setMagnitude(doToggle(wal.getMagnitude()));
+    			}
+    		});
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     }
-    
-    private void registerCommands()
-    {
-        addControl(new CommandControl(KeyEvent.VK_N) {
-            @Override
-            public void Execute () {
-                mySimulation.loadModel();
-            }
-        });
-        
-        addControl(new CommandControl(KeyEvent.VK_C) {
-            @Override
-            public void Execute () {
-                mySimulation.getEntities().clear();
-            }
-        });
-        
-        addControl(new CommandControl(KeyEvent.VK_UP) {
-            @Override
-            public void Execute () {
-                mySimulation.changeBounds(10);
-            }
-        });
-        
-        addControl(new CommandControl(KeyEvent.VK_DOWN) {
-            @Override
-            public void Execute () {
-                mySimulation.changeBounds(-10);
-            }
-        });
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

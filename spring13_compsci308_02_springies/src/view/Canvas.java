@@ -20,9 +20,6 @@ import java.util.TreeSet;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
-import physics.EnvironmentProperties;
-import factory.EnvironmentFactory;
-import factory.ModelFactory;
 
 import simulation.Model;
 

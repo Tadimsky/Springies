@@ -4,8 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 import java.util.ArrayList;
-import javax.swing.JFileChooser;
-import controller.Controller;
+import Controller.Controller;
 import factory.EnvironmentFactory;
 import factory.ModelFactory;
 import physics.EnvironmentProperties;
@@ -28,7 +27,7 @@ public class Model {
     
     private Controller myController;
     
-    private Dimension myChangeBounds;
+    private Dimension myBounds;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -37,7 +36,7 @@ public class Model {
         myView = canvas;   
         myEntities = new ArrayList<ISimulationEntity>();
         myController = new Controller(this);
-        myChangeBounds = new Dimension();
+        myBounds = new Dimension();
     }
 
     /**
@@ -55,10 +54,13 @@ public class Model {
         	myEnvironment.getCenterofMass().draw(pen);
     }
     
-    public void changeBounds(double amnt)
+    public void changeUpAndDownBounds(double amnt)
     {        
-        myChangeBounds.height += amnt;
-        myChangeBounds.width += amnt;
+        myBounds.height += amnt;
+       
+    }
+    public void changeLeftAndRightBounds(double amnt){
+    	myBounds.width += amnt;
     }
     
     private Dimension sumDimensions(Dimension dO, Dimension dT)
@@ -70,8 +72,8 @@ public class Model {
      * Update simulation for this moment, given the time since the last moment.
      */
     public void update (double elapsedTime) {        
-        Dimension bounds = sumDimensions(myChangeBounds, myView.getSize());
-        myController.processKeys();
+        Dimension bounds = sumDimensions(myBounds, myView.getSize());
+        myController.processKeyCommands();
         
     	myEnvironment.getCenterofMass().calculateCenterOfMass(myEntities);    	
         

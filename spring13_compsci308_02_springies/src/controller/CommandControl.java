@@ -1,17 +1,18 @@
-package controller;
+package Controller;
 
-public abstract class CommandControl extends Control {
+public abstract class CommandControl extends KeyControl {
 
-    
-    public CommandControl (int Key) {
-        super(Key);
-    }
-    
-    public abstract void Execute();
-    
-    @Override
-    public void Activate()
-    {
-        Execute();
-    }
+	
+	public CommandControl(int keyCode) {
+		super(keyCode);
+	}
+	
+	public abstract void execute();
+	@Override
+	
+	public void activate() {
+		execute();
+
+	}
+
 }

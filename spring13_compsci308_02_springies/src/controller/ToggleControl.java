@@ -1,44 +1,30 @@
-package controller;
+package Controller;
 
-public abstract class ToggleControl extends Control {
+public abstract class ToggleControl extends KeyControl{
 
-    private boolean isActive;
-    
-    // All types right now have a double that can be activated
-    // May change for future things
-    private double savedValue;
-    
-    public ToggleControl(int Key) 
-    {
-        super(Key);
-        isActive = true;
-    }
-    
-    public abstract void Toggle();
-    
-    public double doToggle(double current)
-    {        
-        isActive = !isActive;
-        if (isActive)
-        {   
-            // turned on            
-            return savedValue;
-        }
-        else
-        {            
-            // turned off
-            savedValue = current;
-            // turn it off
-            return 0;
-        }
-    }
-    
-    @Override
-    public void Activate()
-    {
-        Toggle();
-    }
+	private boolean isActive;
+	private double savedValue;
+	
+	public ToggleControl(int keyCode) {
+		super(keyCode);
+		isActive = true;
+	}
 
+	public abstract void Toggle();
+	
+	public double doToggle(double value){
+		if(isActive){
+			savedValue = value;
+			isActive = !isActive;
+			return 0;
+		}else{
+			isActive = !isActive;
+			return savedValue;
+		}
+		
+	}
+	
+	public void activate(){
+		Toggle();
+	}
 }
-    
-   
