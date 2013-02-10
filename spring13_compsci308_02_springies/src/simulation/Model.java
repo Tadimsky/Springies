@@ -8,6 +8,7 @@ import Controller.Controller;
 import factory.EnvironmentFactory;
 import factory.ModelFactory;
 import physics.EnvironmentProperties;
+import util.Location;
 import view.Canvas;
 
 
@@ -73,7 +74,7 @@ public class Model {
      */
     public void update (double elapsedTime) {        
         Dimension bounds = sumDimensions(myBounds, myView.getSize());
-        myController.processKeyCommands();
+        myController.processCommands();
         
     	myEnvironment.getCenterofMass().calculateCenterOfMass(myEntities);    	
         
@@ -84,6 +85,22 @@ public class Model {
         }
     }
     
+    public Mass findNearesMass(Location lastLocation){
+    	Mass nearestMass = null;
+    	double distance = Double.MAX_VALUE;
+    	for(ISimulationEntity is :myEntities){
+    		if(is instanceof Mass){
+    			if( ! (is instanceof FixedMass)){
+    				if(lastLocation.distance(((Mass) is).getX(), ((Mass) is).getY())<distance){
+    					distance = lastLocation.distance(((Mass) is).getX(), ((Mass) is).getY());
+    					nearestMass = (Mass)is;
+    				}
+    			}
+    		}
+    	}
+    	return nearestMass;
+    }
+    
     public List<ISimulationEntity> getEntities()
     {
         return myEntities;
@@ -92,6 +109,10 @@ public class Model {
     public void add(ISimulationEntity entity)
     {
         myEntities.add(entity);
+    }
+    
+    public void remove(ISimulationEntity entity){
+    	myEntities.remove(entity);
     }
     
     public void setEnvironment(EnvironmentProperties ep)

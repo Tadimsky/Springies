@@ -16,12 +16,14 @@ public class Controller {
 	private Model mySimulation;
 	
 	private Map<Integer,KeyControl> myControls = new HashMap<Integer, KeyControl>();
+	private MouseControl myMouseControl ;
 	
 
     public Controller(Model model){
     	mySimulation = model;
         registerCommands();
         registerToggles();
+        myMouseControl = new MouseControl(model);
     }
 
     public void addControls(KeyControl con){
@@ -29,10 +31,22 @@ public class Controller {
     	
     } 
 
+    public void processCommands(){
+    	processKeyCommands();
+    	processMouseCommands();
+    }
+    
     public void processKeyCommands(){
     	KeyControl keyCommand = myControls.get(mySimulation.getView().getLastKeyPressed());
     	if(keyCommand != null){
     		keyCommand.activate();
+    	}
+    }
+    public void processMouseCommands(){
+    	if(mySimulation.getView().getLastMousePosition() != null){
+    		myMouseControl.mousePressed();
+    	}else{
+    		myMouseControl.mouseReleased();
     	}
     }
     

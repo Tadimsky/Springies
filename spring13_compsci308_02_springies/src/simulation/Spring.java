@@ -20,7 +20,9 @@ public class Spring extends Sprite implements ISimulationEntity {
     // reasonable default values
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("spring.gif");
     public static final int IMAGE_HEIGHT = 20;
-
+    public static final int DEFAULT_K = 3;
+    
+    
     private Mass myStart;
     private Mass myEnd;
     private double myLength;
