@@ -11,7 +11,7 @@ import util.Vector;
  * including gravity, viscosity,centerofmass,wall repulsion
  * 
  * 
- * @author Richard Yang, Jonno Schmidt
+ * @author  Yang, Jonno 
  *
  */
 public class EnvironmentProperties {

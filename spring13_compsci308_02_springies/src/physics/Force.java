@@ -7,28 +7,36 @@ import util.Vector;
  * Used as a super class to forces that apply a force based on the distances away from a Mass
  * These include WallRepulsion and CenterOfMass
  * 
- * @author Jonno
+ * @author Jonno, Yang
  * 
  */
 public abstract class Force {
 
+    private static final int DISTANCE_CONSTANT = 100;
+    
     private double myMagnitude;
     private double myExponent;
+    
     /**
      * 
-     * @param Magnitude 
-     * @param Exponent
+     * @param magnitude magnitude of force
+     * @param exponent exponent used to determine the kind of force
      */
-    public Force (double Magnitude, double Exponent) {
-        myExponent = Exponent;
-        myMagnitude = Magnitude;
+    public Force (double magnitude, double exponent) {
+        myExponent = exponent;
+        myMagnitude = magnitude;
     }
-
-    public double getMagnitude ()
-    {
+    /**
+     * 
+     * @return
+     */
+    public double getMagnitude () {
         return myMagnitude;
     }
-
+    /**
+     * get the exponent of force
+     * @return
+     */
     public double getExponent () {
         return myExponent;
     }
@@ -41,18 +49,19 @@ public abstract class Force {
      * @param distance the distance the mass is away from the source of the force
      * @return
      */
-    public Vector getForce (double angle, double distance)
-    {
+    public Vector getForce (double angle, double distance) {
         Vector repel = new Vector(angle, myMagnitude);
         
-        double scaleamount = 1 / Math.pow(distance / 100, getExponent());            
+        double scaleamount = 1 / Math.pow(distance / DISTANCE_CONSTANT, getExponent());            
         repel.scale(scaleamount);
         
         return repel;
     }
-    
-    public void setMagnitude(double m)
-    {
+    /**
+     * set magnitude to a certain value
+     * @param m a certain magnitude we want to set
+     */
+    public void setMagnitude(double m) {
         myMagnitude = m;
     }
 }

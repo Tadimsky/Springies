@@ -12,7 +12,7 @@ import util.Vector;
 
 /**
  * the class that deal with center of mass force
- * @author Richard Yang , Jonno Schmidt
+ * @author   Jonno, Yang
  *
  */
 public class CenterOfMass extends Force {
