@@ -58,11 +58,11 @@ public class Spring extends Sprite implements ISimulationEntity {
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         double dx = myStart.getX() - myEnd.getX();
-        double dy = (myStart.getY() - myEnd.getY());
+        double dy = myStart.getY() - myEnd.getY();
         
         // apply hooke's law to each attached mass
         Vector force = new Vector(Vector.angleBetween(dx, dy), 
-                                  getKValue() * (myLength - Vector.distanceBetween(dx, dy)));
+                                  getKValue() * (getLength() - Vector.distanceBetween(dx, dy)));
         myStart.applyForce(force);
         force.negate();
         myEnd.applyForce(force);
@@ -91,7 +91,7 @@ public class Spring extends Sprite implements ISimulationEntity {
         return new Dimension((int)start.distance(end), IMAGE_HEIGHT);
     }
     
-    public double getRestLength()
+    public double getLength()
     {
     	return myLength;
     }

@@ -61,6 +61,7 @@ public class Model {
 
     /**
      * change the dimension of boundaries by add/minus a certain value
+     * 
      * @param amnt
      */
     public void changeBounds (double amnt)
@@ -88,7 +89,7 @@ public class Model {
             entity.update(elapsedTime, bounds);
         }
     }
-    
+
     public List<ISimulationEntity> getEntities ()
     {
         return myEntities;

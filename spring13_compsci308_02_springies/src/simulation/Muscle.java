@@ -22,6 +22,7 @@ public class Muscle extends Spring implements ISimulationEntity {
 
     /**
      * constructor for muscle
+     * 
      * @param start the start mass point of this muscle
      * @param end the end mass point of this muscle
      * @param length the rest length of this muscle
@@ -37,13 +38,7 @@ public class Muscle extends Spring implements ISimulationEntity {
 
     @Override
     public void update (double elapsedTime, Dimension bounds) {
-        double newLength = 0;
         myTotalTime += elapsedTime;
-        double avgmass = Math.abs(getStartMass().getMass() + getEndMass().getMass());
-        avgmass /= 2;
-        double omega = Math.sqrt(avgmass / getKValue());
-        newLength = myOriginalLength + Math.sin(omega * myTotalTime) * myAmplitude;
-        setLength(newLength);
         super.update(elapsedTime, bounds);
     }
 
@@ -63,4 +58,14 @@ public class Muscle extends Spring implements ISimulationEntity {
         double amp = s.nextDouble();
         return new Muscle(m1, m2, restLength, ks, amp);
     }
+
+    @Override
+    public double getLength () {
+        double averageMass =
+                Math.abs(getStartMass().getMass()) / 2 + Math.abs(getEndMass().getMass()) / 2;
+        double omega = Math.sqrt(averageMass / getKValue());
+        double length = myOriginalLength + Math.sin(omega * myTotalTime) * myAmplitude;
+        return length;
+    }
+
 }
