@@ -34,7 +34,7 @@ public class Model {
     /**
      * Create a game of the given size with the given display for its shapes.
      * 
-     * @param canvas
+     * @param canvas canvas of this model
      */
     public Model (Canvas canvas) {
         myView = canvas;
@@ -46,7 +46,7 @@ public class Model {
     /**
      * Draw all elements of the simulation.
      * 
-     * @param pen
+     * @param pen pen to draw
      */
     public void paint (Graphics2D pen) {
 
@@ -62,21 +62,20 @@ public class Model {
     /**
      * change the dimension of boundaries by add/minus a certain value
      * 
-     * @param amnt
+     * @param amnt amount of changing for each time
      */
-    public void changeBounds (double amnt)
-    {
+    public void changeBounds (double amnt) {
         myChangeBounds.height += amnt;
         myChangeBounds.width += amnt;
     }
 
-    private Dimension sumDimensions (Dimension dO, Dimension dT)
-    {
+    private Dimension sumDimensions (Dimension dO, Dimension dT) {
         return new Dimension(dO.width + dT.width, dO.height + dT.height);
     }
 
     /**
      * Update simulation for this moment, given the time since the last moment.
+     * @param elapsedTime update time
      */
     public void update (double elapsedTime) {
         Dimension bounds = sumDimensions(myChangeBounds, myView.getSize());
@@ -84,26 +83,34 @@ public class Model {
 
         myEnvironment.getCenterofMass().calculateCenterOfMass(myEntities);
 
-        for (ISimulationEntity entity : myEntities)
-        {
+        for (ISimulationEntity entity : myEntities) {
             entity.update(elapsedTime, bounds);
         }
     }
 
-    public List<ISimulationEntity> getEntities ()
-    {
+    /**
+     * getter for the list of springs and masses and their subclasses
+     * @return
+     */
+    public List<ISimulationEntity> getEntities () {
         return myEntities;
     }
 
-    public void add (ISimulationEntity entity)
-    {
+    /**
+     * add a element into entities
+     * @param entity objects we want to add
+     */
+    public void add (ISimulationEntity entity) {
         myEntities.add(entity);
     }
 
-    public void setEnvironment (EnvironmentProperties ep)
-    {
+    /**
+     * set the environment to certain one
+     * @param ep a certain environment
+     */
+    public void setEnvironment (EnvironmentProperties ep) {
         myEnvironment = ep;
-        Mass.Environment = ep;
+        Mass.setOurEnvironment(ep);
     }
 
     /**
@@ -131,14 +138,12 @@ public class Model {
      * Prompt the user to load an Environment file.
      */
     public void loadEnvironment () {
-        try
-        {
+        try {
             EnvironmentFactory ef = new EnvironmentFactory();
             ef.load(myView.selectFile("Select Environment File"));
             setEnvironment(ef.getEnvironment());
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             // if error, just use blank environment properties
             setEnvironment(new EnvironmentProperties());
         }
@@ -151,21 +156,21 @@ public class Model {
         return myView;
     }
 
-    public Mass findNearest (Point p)
-    {
+    /**
+     * find the nearest mass point to the certain point where mouse click at
+     * @param p a certain point which is the location of mouse
+     * @return
+     */
+    public Mass findNearest (Point p) {
         Mass closest = null;
         double minD = Double.MAX_VALUE;
-        for (ISimulationEntity s : myEntities)
-        {
-            if (s instanceof Mass)
-            {
-                if (!(s instanceof FixedMass))
-                {
+        for (ISimulationEntity s : myEntities) {
+            if (s instanceof Mass) {
+                if (!(s instanceof FixedMass)) {
                     Mass cur = (Mass) s;
                     double distance = Point2D.distance(p.getX(), p.getY(), cur.getX(), cur.getY());
                     System.out.println(distance);
-                    if (distance < minD)
-                    {
+                    if (distance < minD) {
                         closest = cur;
                         minD = distance;
                     }
