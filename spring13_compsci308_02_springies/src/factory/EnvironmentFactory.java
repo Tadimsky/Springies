@@ -9,21 +9,22 @@ import physics.Viscosity;
 import physics.WallRepulsion;
 import simulation.Model;
 
+
 public class EnvironmentFactory extends Factory {
 
     private EnvironmentProperties ep;
-    
+
     public EnvironmentFactory () {
         ep = new EnvironmentProperties();
-        
+
         registerCreation("gravity", new IFactoryCreation() {
             public Object createItem (Scanner s) throws Exception {
                 Gravity g = Gravity.createEntity(s);
                 ep.setGravity(g);
-                return g;                
+                return g;
             }
         });
-        
+
         registerCreation("viscosity", new IFactoryCreation() {
             public Object createItem (Scanner s) throws Exception {
                 Viscosity v = Viscosity.createEntity(s);
@@ -46,13 +47,13 @@ public class EnvironmentFactory extends Factory {
             }
         });
     }
-    
-    public void load(File modelFile)
-    {    
+
+    public void load (File modelFile)
+    {
         load(null, modelFile);
     }
-    
-    public EnvironmentProperties getEnvironment()
+
+    public EnvironmentProperties getEnvironment ()
     {
         return ep;
     }

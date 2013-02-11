@@ -43,13 +43,15 @@ public class Spring extends Sprite implements ISimulationEntity {
     @Override
     public void paint (Graphics2D pen) {
         pen.setColor(getColor(myStart.distance(myEnd) - myLength));
-        pen.drawLine((int)myStart.getX(), (int)myStart.getY(), (int)myEnd.getX(), (int)myEnd.getY());
+        pen.drawLine((int) myStart.getX(), (int) myStart.getY(), (int) myEnd.getX(),
+                     (int) myEnd.getY());
 
-        //pen.drawLine((int)myEnd.getX(), (int)myEnd.getY()+100, (int)(myEnd.getX() - myLength), (int)myEnd.getY()+100 );
+        // pen.drawLine((int)myEnd.getX(), (int)myEnd.getY()+100, (int)(myEnd.getX() - myLength),
+        // (int)myEnd.getY()+100 );
         /*
-        Location l = getCenter(myStart, myEnd);
-        pen.drawOval((int)l.getX() + 5, (int)l.getY() + 5, 10, 10);
-        */
+         * Location l = getCenter(myStart, myEnd);
+         * pen.drawOval((int)l.getX() + 5, (int)l.getY() + 5, 10, 10);
+         */
     }
 
     /**
@@ -59,9 +61,9 @@ public class Spring extends Sprite implements ISimulationEntity {
     public void update (double elapsedTime, Dimension bounds) {
         double dx = myStart.getX() - myEnd.getX();
         double dy = (myStart.getY() - myEnd.getY());
-        
+
         // apply hooke's law to each attached mass
-        Vector force = new Vector(Vector.angleBetween(dx, dy), 
+        Vector force = new Vector(Vector.angleBetween(dx, dy),
                                   getKValue() * (myLength - Vector.distanceBetween(dx, dy)));
         myStart.applyForce(force);
         force.negate();
@@ -76,8 +78,10 @@ public class Spring extends Sprite implements ISimulationEntity {
      * Convenience method.
      */
     protected Color getColor (double diff) {
-        if (Vector.fuzzyEquals(diff, 0)) return Color.BLACK;
-        else if (diff < 0.0) return Color.BLUE;
+        if (Vector.fuzzyEquals(diff, 0))
+            return Color.BLACK;
+        else if (diff < 0.0)
+            return Color.BLUE;
         else return Color.RED;
     }
 
@@ -88,38 +92,38 @@ public class Spring extends Sprite implements ISimulationEntity {
 
     // compute size of this spring
     protected static Dimension getSize (Mass start, Mass end) {
-        return new Dimension((int)start.distance(end), IMAGE_HEIGHT);
+        return new Dimension((int) start.distance(end), IMAGE_HEIGHT);
     }
-    
-    public double getRestLength()
+
+    public double getRestLength ()
     {
-    	return myLength;
+        return myLength;
     }
-    
-    public void setLength(double len)
+
+    public void setLength (double len)
     {
-    	myLength = len;
+        myLength = len;
     }
-    
-    public Mass getStartMass()
+
+    public Mass getStartMass ()
     {
-    	return myStart;
+        return myStart;
     }
-    
-    public Mass getEndMass()
+
+    public Mass getEndMass ()
     {
-    	return myEnd;
+        return myEnd;
     }
 
     /**
      * @return the myK
      */
-    public double getKValue() {
-	return myK;
+    public double getKValue () {
+        return myK;
     }
-    
+
     public static Spring createEntity (Scanner s, Map<Integer, Mass> myMasses) {
-        
+
         Mass m1 = myMasses.get(s.nextInt());
         Mass m2 = myMasses.get(s.nextInt());
         double restLength = s.nextDouble();

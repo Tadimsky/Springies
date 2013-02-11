@@ -86,6 +86,7 @@ public class Mass extends Sprite implements ISimulationEntity {
 
     /**
      * Use the given force to change this mass's acceleration.
+     * 
      * @param force force that applied on the mass point
      */
     public void applyForce (Vector force)

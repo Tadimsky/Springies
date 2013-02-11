@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 
 /**
- * This class represents an image on the screen and 
+ * This class represents an image on the screen and
  * adds some utility functions to the Image class.
  * 
  * Note, Java only supports the formats: png, jpg, gif.
@@ -21,7 +21,6 @@ public class Pixmap {
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
-
 
     /**
      * Create an image from the given filename.

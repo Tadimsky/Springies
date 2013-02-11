@@ -13,10 +13,10 @@ import util.Vector;
 public abstract class Force {
 
     private static final int DISTANCE_CONSTANT = 100;
-    
+
     private double myMagnitude;
     private double myExponent;
-    
+
     /**
      * 
      * @param magnitude magnitude of force
@@ -26,6 +26,7 @@ public abstract class Force {
         myExponent = exponent;
         myMagnitude = magnitude;
     }
+
     /**
      * 
      * @return
@@ -33,8 +34,10 @@ public abstract class Force {
     public double getMagnitude () {
         return myMagnitude;
     }
+
     /**
      * get the exponent of force
+     * 
      * @return
      */
     public double getExponent () {
@@ -51,17 +54,19 @@ public abstract class Force {
      */
     public Vector getForce (double angle, double distance) {
         Vector repel = new Vector(angle, myMagnitude);
-        
-        double scaleamount = 1 / Math.pow(distance / DISTANCE_CONSTANT, getExponent());            
+
+        double scaleamount = 1 / Math.pow(distance / DISTANCE_CONSTANT, getExponent());
         repel.scale(scaleamount);
-        
+
         return repel;
     }
+
     /**
      * set magnitude to a certain value
+     * 
      * @param m a certain magnitude we want to set
      */
-    public void setMagnitude(double m) {
+    public void setMagnitude (double m) {
         myMagnitude = m;
     }
 }

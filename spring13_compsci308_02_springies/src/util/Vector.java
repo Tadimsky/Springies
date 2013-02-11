@@ -16,7 +16,6 @@ public class Vector {
     // "speed" in pixels per second
     private double myMagnitude;
 
-
     /**
      * Create a zero vector, i.e., with no magnitude.
      */
@@ -194,8 +193,8 @@ public class Vector {
     public boolean equals (Object vector) {
         try {
             Vector other = (Vector) vector;
-            return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && 
-                    fuzzyEquals(getDirection(), other.getDirection()));
+            return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && fuzzyEquals(getDirection(),
+                                                                                     other.getDirection()));
         }
         catch (ClassCastException e) {
             return false;

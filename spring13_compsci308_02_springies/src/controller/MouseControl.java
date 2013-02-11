@@ -7,9 +7,8 @@ import simulation.MouseMass;
 import simulation.Spring;
 
 
-
 public class MouseControl {
-    
+
     private static final int SPRING_STRENGTH = 3;
 
     private Point myInitialMouse;
@@ -18,18 +17,17 @@ public class MouseControl {
 
     private MouseMass mouseMass;
     private Spring pullSpring;
-    
+
     private Model mySimulation;
-    
-    public MouseControl (Model Simulation) {        
+
+    public MouseControl (Model Simulation) {
         myInitialMouse = new Point();
         isPressed = false;
         mySimulation = Simulation;
     }
 
     public void clickMouse () {
-        if (isPressed)
-            return;
+        if (isPressed) { return; }
         Point mouse = mySimulation.getView().getLastMousePosition();
         setInitialMouse(mouse);
         Mass toMove = mySimulation.findNearest(mouse);
@@ -70,7 +68,7 @@ public class MouseControl {
     public void setInitialMouse (Point Mouse) {
         this.myInitialMouse = Mouse;
     }
-    
+
     public void moveMouse ()
     {
         if (isPressed)

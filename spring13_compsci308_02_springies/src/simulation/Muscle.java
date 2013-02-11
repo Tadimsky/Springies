@@ -22,6 +22,7 @@ public class Muscle extends Spring implements ISimulationEntity {
 
     /**
      * constructor for muscle
+     * 
      * @param start the start mass point of this muscle
      * @param end the end mass point of this muscle
      * @param length the rest length of this muscle

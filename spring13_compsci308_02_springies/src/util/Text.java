@@ -23,7 +23,6 @@ public class Text {
     private String myText;
     private Font myFont;
 
-
     /**
      * Construct a shape at the given position, with the given velocity,
      * size, and color, displaying the given text string.
