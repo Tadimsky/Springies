@@ -3,15 +3,14 @@ package simulation;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.util.List;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import javax.swing.JFileChooser;
+import java.util.List;
+import physics.EnvironmentProperties;
+import view.Canvas;
 import controller.Controller;
 import factory.EnvironmentFactory;
 import factory.ModelFactory;
-import physics.EnvironmentProperties;
-import util.Location;
-import view.Canvas;
 
 
 /**
@@ -22,21 +21,23 @@ import view.Canvas;
 public class Model {
     // bounds and input for game
     private Canvas myView;
-    
+
     // simulation state
     private List<ISimulationEntity> myEntities;
-    
+
     private EnvironmentProperties myEnvironment;
-    
+
     private Controller myController;
-    
+
     private Dimension myChangeBounds;
 
     /**
      * Create a game of the given size with the given display for its shapes.
+     * 
+     * @param canvas
      */
     public Model (Canvas canvas) {
-        myView = canvas;   
+        myView = canvas;
         myEntities = new ArrayList<ISimulationEntity>();
         myController = new Controller(this);
         myChangeBounds = new Dimension();
@@ -44,26 +45,31 @@ public class Model {
 
     /**
      * Draw all elements of the simulation.
+     * 
+     * @param pen
      */
     public void paint (Graphics2D pen) {
-        
-        
-        for (ISimulationEntity entity : myEntities)
-        {
+
+        for (ISimulationEntity entity : myEntities) {
             entity.paint(pen);
         }
-        
-        if (myEnvironment != null)
-        	myEnvironment.getCenterofMass().draw(pen);
+
+        if (myEnvironment != null) {
+            myEnvironment.getCenterofMass().draw(pen);
+        }
     }
-    
-    public void changeBounds(double amnt)
-    {        
+
+    /**
+     * change the dimension of boundaries by add/minus a certain value
+     * @param amnt
+     */
+    public void changeBounds (double amnt)
+    {
         myChangeBounds.height += amnt;
         myChangeBounds.width += amnt;
     }
-    
-    private Dimension sumDimensions(Dimension dO, Dimension dT)
+
+    private Dimension sumDimensions (Dimension dO, Dimension dT)
     {
         return new Dimension(dO.width + dT.width, dO.height + dT.height);
     }
@@ -71,35 +77,34 @@ public class Model {
     /**
      * Update simulation for this moment, given the time since the last moment.
      */
-    public void update (double elapsedTime) {        
+    public void update (double elapsedTime) {
         Dimension bounds = sumDimensions(myChangeBounds, myView.getSize());
         myController.update();
-                
-    	myEnvironment.getCenterofMass().calculateCenterOfMass(myEntities);    	
-        
-        
+
+        myEnvironment.getCenterofMass().calculateCenterOfMass(myEntities);
+
         for (ISimulationEntity entity : myEntities)
         {
             entity.update(elapsedTime, bounds);
         }
     }
     
-    public List<ISimulationEntity> getEntities()
+    public List<ISimulationEntity> getEntities ()
     {
         return myEntities;
     }
-    
-    public void add(ISimulationEntity entity)
+
+    public void add (ISimulationEntity entity)
     {
         myEntities.add(entity);
     }
-    
-    public void setEnvironment(EnvironmentProperties ep)
+
+    public void setEnvironment (EnvironmentProperties ep)
     {
-    	myEnvironment = ep;
-    	Mass.Environment = ep;
+        myEnvironment = ep;
+        Mass.Environment = ep;
     }
-    
+
     /**
      * @return the Environment
      */
@@ -108,44 +113,44 @@ public class Model {
     }
 
     /**
-     * Prompt the user to load a Model file. 
+     * Prompt the user to load a Model file.
      */
-    public void loadModel () {        
+    public void loadModel () {
         try {
             ModelFactory factory;
             factory = new ModelFactory();
-            factory.load(this, myView.selectFile("Select Model Data"));            
+            factory.load(this, myView.selectFile("Select Model Data"));
         }
-        catch (Exception e) {           
+        catch (Exception e) {
             // no model loaded
         }
     }
-    
+
     /**
      * Prompt the user to load an Environment file.
      */
-    public void loadEnvironment() {
+    public void loadEnvironment () {
         try
         {
-            EnvironmentFactory ef = new EnvironmentFactory();        
-            ef.load(myView.selectFile("Select Environment File"));        
+            EnvironmentFactory ef = new EnvironmentFactory();
+            ef.load(myView.selectFile("Select Environment File"));
             setEnvironment(ef.getEnvironment());
         }
         catch (Exception e)
-        {                        
+        {
             // if error, just use blank environment properties
             setEnvironment(new EnvironmentProperties());
         }
     }
-    
+
     /**
      * @return the Canvas
      */
     public Canvas getView () {
         return myView;
     }
-    
-    public Mass findNearest(Point p)
+
+    public Mass findNearest (Point p)
     {
         Mass closest = null;
         double minD = Double.MAX_VALUE;
@@ -155,8 +160,8 @@ public class Model {
             {
                 if (!(s instanceof FixedMass))
                 {
-                    Mass cur = (Mass)s;                    
-                    double distance = Location.distance(p.getX(), p.getY(), cur.getX(), cur.getY());
+                    Mass cur = (Mass) s;
+                    double distance = Point2D.distance(p.getX(), p.getY(), cur.getX(), cur.getY());
                     System.out.println(distance);
                     if (distance < minD)
                     {

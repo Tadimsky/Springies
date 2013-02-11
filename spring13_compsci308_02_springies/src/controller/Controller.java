@@ -1,21 +1,14 @@
 package controller;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import physics.CenterOfMass;
 import physics.Gravity;
 import physics.Viscosity;
 import physics.WallRepulsion;
-import simulation.FixedMass;
-import simulation.Mass;
 import simulation.Model;
-import simulation.Spring;
-import util.Location;
+
 
 public class Controller{
     

@@ -14,7 +14,11 @@ public abstract class Force {
 
     private double myMagnitude;
     private double myExponent;
-
+    /**
+     * 
+     * @param Magnitude 
+     * @param Exponent
+     */
     public Force (double Magnitude, double Exponent) {
         myExponent = Exponent;
         myMagnitude = Magnitude;

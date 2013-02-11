@@ -1,12 +1,11 @@
 package controller;
 
 import java.awt.Point;
-import simulation.FixedMass;
 import simulation.Mass;
 import simulation.Model;
 import simulation.MouseMass;
 import simulation.Spring;
-import util.Location;
+
 
 
 public class MouseControl {
