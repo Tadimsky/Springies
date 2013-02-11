@@ -16,10 +16,11 @@ public class FixedMass extends Mass {
     /**
      * constructor for FixedMass
      * 
-     * @param id
-     * @param x
-     * @param y
-     * @param mass
+     * @param id the ID of fixed mass point
+     * @param x x position of mass point
+     * @param y y position of mass point
+     * @param mass the mass of fixed mass point, 
+     * useful in calculating center of mass
      */
 
     public FixedMass (int id, double x, double y, double mass) {

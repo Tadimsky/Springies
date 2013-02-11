@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 /**
+ * an interface that has update and paint method, which 
+ * will cover all the five types of objects in this system
+ * including mass, fixed mass, mousemss, springies, muscles
  * 
  * @author Richard Yang, Jonno Schmidt
  *
@@ -11,14 +14,14 @@ import java.awt.Graphics2D;
 public interface ISimulationEntity {
     /**
      * update the current status
-     * @param elapsedTime
-     * @param bounds
+     * @param elapsedTime time unit for updating the frame
+     * @param bounds boundaries of this system
      */
     public abstract void update (double elapsedTime, Dimension bounds);
 
     /**
      * paint stuff on canvas
-     * @param draw
+     * @param pen pen that draw on canvas
      */
-    public abstract void paint (Graphics2D draw);
+    public abstract void paint (Graphics2D pen);
 }
