@@ -23,7 +23,7 @@ public class Gravity extends Force {
     /**
      * constructor for gravity
      * 
-     * @param magnitude magnitude of gravity, which means accerlation
+     * @param magnitude magnitude of gravity, which means acceleration
      * @param angle the direction of gravity
      */
     public Gravity (double magnitude, double angle) {

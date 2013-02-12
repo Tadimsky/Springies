@@ -185,8 +185,12 @@ public class Canvas extends JComponent {
         });
     }
 
-    public File selectFile (String prompt)
-    {
+    /**
+     * Prompts the user to select a file and returns the file
+     * @param prompt the prompt text to show the user
+     * @return the file the user selected
+     */
+    public File selectFile (String prompt) {
         INPUT_CHOOSER.setDialogTitle("Select Environment Data");
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) { return INPUT_CHOOSER.getSelectedFile(); }

@@ -28,6 +28,7 @@ public abstract class Force {
     }
 
     /**
+     * returns the magnitude of the force
      * 
      * @return
      */
