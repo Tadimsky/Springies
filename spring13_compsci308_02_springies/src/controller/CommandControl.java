@@ -25,8 +25,7 @@ public abstract class CommandControl extends KeyControl {
     public abstract void execute ();
 
     @Override
-    public void Activate ()
-    {
+    public void activate () {
         execute();
     }
 }

@@ -19,13 +19,15 @@ public class Controller {
 
     private Model mySimulation;
 
-    private static final int BOUNDS_CHANGE = 10;
+    /**
+     * 
+     */
+    public static final int BOUNDS_CHANGE = 10;
 
     private Map<Integer, KeyControl> myControlMap = new HashMap<Integer, KeyControl>();
     private MouseControl myMouseControl;
 
-    public Controller (Model sim)
-    {
+    public Controller (Model sim) {
         mySimulation = sim;
         registerToggles();
         registerCommands();
