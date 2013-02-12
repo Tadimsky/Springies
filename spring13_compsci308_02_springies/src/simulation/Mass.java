@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Scanner;
+import factory.IFactoryCreator;
 import physics.EnvironmentProperties;
 import util.Location;
 import util.Pixmap;
@@ -157,4 +158,5 @@ public class Mass extends Sprite implements ISimulationEntity {
     public int getId () {
         return myId;
     }
+
 }

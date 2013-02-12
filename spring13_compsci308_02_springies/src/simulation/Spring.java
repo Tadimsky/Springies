@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 import java.util.Scanner;
+import factory.IFactoryCreator;
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -130,4 +131,5 @@ public class Spring extends Sprite implements ISimulationEntity {
         double ks = s.nextDouble();
         return new Spring(m1, m2, restLength, ks);
     }
+
 }
