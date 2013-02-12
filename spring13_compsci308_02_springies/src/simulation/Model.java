@@ -14,7 +14,7 @@ import factory.ModelFactory;
 
 
 /**
- * XXX.
+ * The Model Class
  * 
  * @author Robert C. Duvall
  */
@@ -75,6 +75,7 @@ public class Model {
 
     /**
      * Update simulation for this moment, given the time since the last moment.
+     * 
      * @param elapsedTime update time
      */
     public void update (double elapsedTime) {
@@ -90,6 +91,7 @@ public class Model {
 
     /**
      * getter for the list of springs and masses and their subclasses
+     * 
      * @return
      */
     public List<ISimulationEntity> getEntities () {
@@ -98,6 +100,7 @@ public class Model {
 
     /**
      * add a element into entities
+     * 
      * @param entity objects we want to add
      */
     public void add (ISimulationEntity entity) {
@@ -106,6 +109,7 @@ public class Model {
 
     /**
      * set the environment to certain one
+     * 
      * @param ep a certain environment
      */
     public void setEnvironment (EnvironmentProperties ep) {
@@ -124,29 +128,18 @@ public class Model {
      * Prompt the user to load a Model file.
      */
     public void loadModel () {
-        try {
-            ModelFactory factory;
-            factory = new ModelFactory();
-            factory.load(this, myView.selectFile("Select Model Data"));
-        }
-        catch (Exception e) {
-            // no model loaded
-        }
+        ModelFactory factory;
+        factory = new ModelFactory();
+        factory.load(this, myView.selectFile("Select Model Data"));
     }
 
     /**
      * Prompt the user to load an Environment file.
      */
     public void loadEnvironment () {
-        try {
-            EnvironmentFactory ef = new EnvironmentFactory();
-            ef.load(myView.selectFile("Select Environment File"));
-            setEnvironment(ef.getEnvironment());
-        }
-        catch (Exception e) {
-            // if error, just use blank environment properties
-            setEnvironment(new EnvironmentProperties());
-        }
+        EnvironmentFactory ef = new EnvironmentFactory();
+        ef.load(myView.selectFile("Select Environment File"));
+        setEnvironment(ef.getEnvironment());
     }
 
     /**
@@ -158,6 +151,7 @@ public class Model {
 
     /**
      * find the nearest mass point to the certain point where mouse click at
+     * 
      * @param p a certain point which is the location of mouse
      * @return
      */

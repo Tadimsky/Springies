@@ -9,52 +9,72 @@ import physics.Viscosity;
 import physics.WallRepulsion;
 import simulation.Model;
 
+
+/**
+ * The Environment Factory creates all the environment forces entities in the simulation.
+ * 
+ * @author Jonathan Schmidt, Yang Yang
+ * 
+ */
 public class EnvironmentFactory extends Factory {
 
-    private EnvironmentProperties ep;
-    
+    private EnvironmentProperties myEnvironment;
+
+    /**
+     * Creates an instance of the Environment Factory.
+     * Registers all the different types of environment properties that can be read in.
+     */
     public EnvironmentFactory () {
-        ep = new EnvironmentProperties();
-        
-        registerCreation("gravity", new IFactoryCreation() {
-            public Object createItem (Scanner s) throws Exception {
+        myEnvironment = new EnvironmentProperties();
+
+        registerCreation("gravity", new IFactoryCreator() {
+            public Object createItem (Scanner s) {
                 Gravity g = Gravity.createEntity(s);
-                ep.setGravity(g);
-                return g;                
+                myEnvironment.setGravity(g);
+                return g;
             }
         });
-        
-        registerCreation("viscosity", new IFactoryCreation() {
-            public Object createItem (Scanner s) throws Exception {
+
+        registerCreation("viscosity", new IFactoryCreator() {
+            public Object createItem (Scanner s) {
                 Viscosity v = Viscosity.createEntity(s);
-                ep.setViscosity(v);
+                myEnvironment.setViscosity(v);
                 return v;
             }
         });
-        registerCreation("centermass", new IFactoryCreation() {
-            public Object createItem (Scanner s) throws Exception {
+        registerCreation("centermass", new IFactoryCreator() {
+            public Object createItem (Scanner s) {
                 CenterOfMass com = CenterOfMass.createEntity(s);
-                ep.setCenterOfMass(com);
+                myEnvironment.setCenterOfMass(com);
                 return com;
             }
         });
-        registerCreation("wall", new IFactoryCreation() {
-            public Object createItem (Scanner s) throws Exception {
+        registerCreation("wall", new IFactoryCreator() {
+            public Object createItem (Scanner s) {
                 WallRepulsion wr = WallRepulsion.createEntity(s);
-                ep.addWallRepulsion(wr);
+                myEnvironment.addWallRepulsion(wr);
                 return wr;
             }
         });
     }
-    
-    public void load(File modelFile)
-    {    
+
+    /**
+     * Loads the information from the specified file.
+     * Does not require the simulation to be passed in.
+     * 
+     * @param modelFile The File to be read
+     */
+    public void load (File modelFile) {
         load(null, modelFile);
     }
-    
-    public EnvironmentProperties getEnvironment()
-    {
-        return ep;
+
+    /**
+     * Returns the Environment Properties file that was created.
+     * 
+     * @return The Environment Properties file
+     */
+    public EnvironmentProperties getEnvironment () {
+        return myEnvironment;
     }
 
     @Override

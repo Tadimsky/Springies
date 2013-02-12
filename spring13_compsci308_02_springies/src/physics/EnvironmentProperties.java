@@ -6,22 +6,23 @@ import java.util.Map;
 import simulation.Mass;
 import util.Vector;
 
+
 /**
  * this class contains all the environment properties
  * including gravity, viscosity,centerofmass,wall repulsion
  * 
  * 
- * @author  Yang, Jonno 
- *
+ * @author Yang, Jonno
+ * 
  */
 public class EnvironmentProperties {
-   
+
     private static final int NUMBER_OF_WALLS = 4;
-    
+
     private Gravity myGravity;
     private Viscosity myViscosity;
     private CenterOfMass myCenterofMass;
-    private Map<Integer, WallRepulsion> myWalls = new HashMap<Integer, WallRepulsion>();    
+    private Map<Integer, WallRepulsion> myWalls = new HashMap<Integer, WallRepulsion>();
 
     /**
      * construct a clear environment without any forces.
@@ -46,6 +47,7 @@ public class EnvironmentProperties {
     public void setGravity (Gravity g) {
         myGravity = g;
     }
+
     /**
      * set viscosity to a certain value
      * 
@@ -54,10 +56,11 @@ public class EnvironmentProperties {
     public void setViscosity (Viscosity v) {
         myViscosity = v;
     }
+
     /**
      * add a wall repulsion to the list
      * 
-     * @param wr a certain wall repulsion 
+     * @param wr a certain wall repulsion
      */
     public void addWallRepulsion (WallRepulsion wr) {
         myWalls.put(wr.getWall(), wr);
@@ -71,14 +74,14 @@ public class EnvironmentProperties {
     public CenterOfMass getCenterofMass () {
         return myCenterofMass;
     }
-    
+
     /**
      * 
      * @param index index of wall, 1 for topwall
      *        2 for right,3 for bottom, 4 for left
      * @return
      */
-    public WallRepulsion getWall(int index) {
+    public WallRepulsion getWall (int index) {
         return myWalls.get(index);
     }
 
@@ -89,10 +92,11 @@ public class EnvironmentProperties {
         myGravity = new Gravity(0, 0);
         myViscosity = new Viscosity(0);
         myCenterofMass = new CenterOfMass(0, 0);
-        for (int i = 1; i < NUMBER_OF_WALLS; i++) {           
+        for (int i = 1; i < NUMBER_OF_WALLS; i++) {
             myWalls.put(i, new WallRepulsion(i, 0, 0));
         }
     }
+
     /**
      * get the wall repulsion by calculating
      * the distance between mass and a certain wall
@@ -109,27 +113,32 @@ public class EnvironmentProperties {
         }
         return result;
     }
+
     /**
      * calculate the gravity FORCE for a certain mass point
+     * 
      * @param m the certain mass point that we have to its gravity
      * @return
      */
     public Vector getGravity (Mass m) {
         return myGravity.getForce(m);
     }
+
     /**
      * get the gravity without calculating the mass
+     * 
      * @return
      */
-    public Gravity getGravity() {
+    public Gravity getGravity () {
         return myGravity;
     }
+
     /**
      * get the gravity without calculating the velocity
      * 
      * @return
      */
-    public Viscosity getViscosity() {
+    public Viscosity getViscosity () {
         return myViscosity;
     }
 

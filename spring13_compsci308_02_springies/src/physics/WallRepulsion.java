@@ -6,13 +6,14 @@ import simulation.Mass;
 import util.Sprite;
 import util.Vector;
 
+
 /**
  * the class of wallRepulsion,default direction is from wall to mass
  * every wall can have its repulsion force
  * can be turned on and off
  * 
  * @author Jonno , Yang
- *
+ * 
  */
 public class WallRepulsion extends Force {
     /**
@@ -38,6 +39,7 @@ public class WallRepulsion extends Force {
 
     /**
      * constructor for wall repulsion
+     * 
      * @param wallID the ID of walls, follow the ID listed above
      * @param magnitude magnitude of the wall repulsion force, propotional
      *        to the force
@@ -51,6 +53,7 @@ public class WallRepulsion extends Force {
 
     /**
      * get the angle between mass point and a certain wall
+     * 
      * @return
      */
     private double getAngle () {
@@ -75,6 +78,7 @@ public class WallRepulsion extends Force {
 
     /**
      * get distance between mass point and a certain wall
+     * 
      * @param m mass point we want to apply force on
      * @param bounds boundaries we thought as walls
      * @return
@@ -102,6 +106,7 @@ public class WallRepulsion extends Force {
 
     /**
      * get wall ID
+     * 
      * @return
      */
     public int getWall () {
@@ -109,7 +114,7 @@ public class WallRepulsion extends Force {
     }
 
     /**
-     * get the wall repulsion force based on mass point and 
+     * get the wall repulsion force based on mass point and
      * their distance from walls
      * 
      * @param m mass point we want to apply force on
@@ -121,7 +126,7 @@ public class WallRepulsion extends Force {
         double distance = getDistance(m, bounds);
         return super.getForce(myAngle, distance);
     }
- 
+
     /**
      * construct wall repulsion by using data obtained from scanner
      * 

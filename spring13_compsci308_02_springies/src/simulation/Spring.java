@@ -60,7 +60,6 @@ public class Spring extends Sprite implements ISimulationEntity {
          */
     }
 
-    
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         double dx = myStart.getX() - myEnd.getX();
@@ -69,6 +68,7 @@ public class Spring extends Sprite implements ISimulationEntity {
         // apply hooke's law to each attached mass
         Vector force = new Vector(Vector.angleBetween(dx, dy),
                                   getKValue() * (getLength() - Vector.distanceBetween(dx, dy)));
+
         myStart.applyForce(force);
         force.negate();
         myEnd.applyForce(force);
@@ -85,7 +85,6 @@ public class Spring extends Sprite implements ISimulationEntity {
         if (Vector.fuzzyEquals(diff, 0)) {
             return Color.BLACK;
         }
-           
         else if (diff < 0.0) {
             return Color.BLUE;
         }
@@ -106,6 +105,7 @@ public class Spring extends Sprite implements ISimulationEntity {
 
     /**
      * getter for the length
+     * 
      * @return
      */
     public double getLength () {
@@ -114,6 +114,7 @@ public class Spring extends Sprite implements ISimulationEntity {
 
     /**
      * setter for the length
+     * 
      * @param len length we want to set
      */
     public void setLength (double len) {
@@ -122,6 +123,7 @@ public class Spring extends Sprite implements ISimulationEntity {
 
     /**
      * getter for starter mass point
+     * 
      * @return
      */
     public Mass getStartMass () {
@@ -130,6 +132,7 @@ public class Spring extends Sprite implements ISimulationEntity {
 
     /**
      * getter for end mass point
+     * 
      * @return
      */
     public Mass getEndMass () {
@@ -157,4 +160,5 @@ public class Spring extends Sprite implements ISimulationEntity {
         double ks = s.nextDouble();
         return new Spring(m1, m2, restLength, ks);
     }
+
 }

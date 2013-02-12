@@ -31,7 +31,7 @@ public class Mass extends Sprite implements ISimulationEntity {
      * environment of this system
      */
     private static EnvironmentProperties ourEnvironment;
-    
+
     private double myMass;
 
     private Vector myAcceleration;
@@ -52,7 +52,6 @@ public class Mass extends Sprite implements ISimulationEntity {
         myId = id;
     }
 
-    
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         Vector bounce = getBounce(bounds);
@@ -95,11 +94,10 @@ public class Mass extends Sprite implements ISimulationEntity {
         myAcceleration.sum(scaled);
     }
 
-
     /**
      * get the distance between two mass points
      * 
-     * @param other another mass point you want to calculate distance 
+     * @param other another mass point you want to calculate distance
      * @return
      */
     public double distance (Mass other) {
@@ -112,7 +110,6 @@ public class Mass extends Sprite implements ISimulationEntity {
         final double IMPULSE_MAGNITUDE = 2;
         final double TOLERANCE = 10;
         Vector impulse = new Vector();
-
 
         if (getLeft() < TOLERANCE) {
             impulse = new Vector(RIGHT_DIRECTION, IMPULSE_MAGNITUDE);
@@ -140,6 +137,7 @@ public class Mass extends Sprite implements ISimulationEntity {
 
     /**
      * create
+     * 
      * @param line scanner we used to obtain data
      * @return
      */
@@ -165,6 +163,7 @@ public class Mass extends Sprite implements ISimulationEntity {
     public int getId () {
         return myId;
     }
+
     /**
      * getter for mass.
      * 
@@ -174,13 +173,12 @@ public class Mass extends Sprite implements ISimulationEntity {
         return myMass;
     }
 
-
     /**
      * setter for environment
+     * 
      * @param environment environment properties
      */
     public static void setOurEnvironment (EnvironmentProperties environment) {
         Mass.ourEnvironment = environment;
     }
-    
 }
