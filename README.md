@@ -16,12 +16,15 @@ Total Time spent on this assignment was around 10 hours when we worked together 
 We worked on the majority of the 2nd part together, often coding on one computer at a time.
 Jonathan then spent some time trying to figure out the factory a better way and we met and refined it from there.
 For part 3 Jonathan implemented the initial code (because it was similar to the factory) and then Yang fixed up the problems and extended it.
+
 #### Repository
 [GitHub Repository](https://github.com/Tadimsky/Springies)
+
 #### Resources
 The external resources we used:
 - Various sites for trying to figure out a better factory
 - Jimmy Mu (our TA)
+
 #### Extra Stuff
 We made the factory an abstract class that uses a map of String to Interface that allows the factory to be used to create anything it wants to.
 The factory is then made concrete in two seperate classes which register the environment and simulation data respectively.
