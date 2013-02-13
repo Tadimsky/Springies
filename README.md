@@ -16,6 +16,7 @@ Total Time spent on this assignment was around 10 hours when we worked together 
 We worked on the majority of the 2nd part together, often coding on one computer at a time.
 Jonathan then spent some time trying to figure out the factory a better way and we met and refined it from there.
 For part 3 Jonathan implemented the initial code (because it was similar to the factory) and then Yang fixed up the problems and extended it.
+Then both Jonathan and Yang made some efforts on fixing checkstyle problems and avoid duplicated code.
 
 #### Repository
 [GitHub Repository](https://github.com/Tadimsky/Springies)
